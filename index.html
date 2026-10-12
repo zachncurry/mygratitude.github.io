@@ -53,8 +53,8 @@
 
         <!-- AI Model Status Pill -->
         <div class="hidden md:flex items-center space-x-2 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-3 py-1.5 rounded-full text-xs">
-            <span id="ai-status-indicator" class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse"></span>
-            <span id="ai-status-text" class="font-medium text-slate-600 dark:text-slate-300">Loading AI Engine...</span>
+            <span id="ai-status-indicator" class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+            <span id="ai-status-text" class="font-medium text-slate-600 dark:text-slate-300">AI Engine Ready</span>
         </div>
 
         <div class="flex items-center space-x-2">
@@ -70,15 +70,6 @@
             </button>
         </div>
     </header>
-
-    <!-- iOS PWA Installation Banner (Hidden by default, shows on Safari if not running standalone) -->
-    <div id="ios-install-banner" class="bg-brand-600 text-white px-4 py-3 text-xs md:text-sm hidden flex items-center justify-between shadow-md">
-        <div class="flex items-center space-x-2">
-            <i class="fa-solid fa-mobile-screen-button text-lg"></i>
-            <span><strong>Install MindfulCare:</strong> Tap the browser <i class="fa-solid fa-share-nodes mx-1"></i> Share button, then select <strong>"Add to Home Screen"</strong> to enable iPhone notifications.</span>
-        </div>
-        <button onclick="document.getElementById('ios-install-banner').style.display='none'" class="ml-4 font-bold text-lg">&times;</button>
-    </div>
 
     <!-- Main Container with Tabs -->
     <main class="flex-1 max-w-7xl w-full mx-auto p-4 lg:p-6 flex flex-col overflow-hidden">
@@ -105,21 +96,34 @@
 
         <!-- TAB 1: DASHBOARD -->
         <div id="tab-dashboard" class="tab-content flex-1 overflow-y-auto space-y-6 pb-12">
-            <div class="bg-gradient-to-r from-primary-600/10 via-brand-600/10 to-primary-500/10 dark:from-primary-900/30 dark:to-brand-900/30 border border-primary-500/20 rounded-3xl p-6 lg:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm">
-                <div class="space-y-2 text-center md:text-left">
-                    <span id="current-date-badge" class="px-3 py-1 bg-primary-500/20 text-primary-700 dark:text-primary-300 rounded-full text-xs font-semibold uppercase tracking-wider">Today</span>
-                    <h2 class="text-2xl lg:text-3xl font-bold tracking-tight">Welcome back, take a breath.</h2>
-                    <p class="text-slate-600 dark:text-slate-400 text-sm max-w-xl">Track your daily moments of gratitude without repetition for 30 days, and stay on top of your medication schedules seamlessly.</p>
+            <!-- AI Emotion Cards Section Restored -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 p-5 rounded-2xl shadow-sm flex items-center space-x-4">
+                    <div class="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-950/50 text-indigo-500 flex items-center justify-center text-xl shadow-inner">
+                        <i class="fa-solid fa-face-smile"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wider">AI Sentiment</p>
+                        <h3 id="ai-stat-sentiment" class="text-xl font-bold mt-0.5">Calm & Balanced</h3>
+                    </div>
                 </div>
-                <div class="flex flex-col sm:flex-row gap-3">
-                    <button onclick="switchTab('gratitude')" class="px-5 py-3 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-medium text-sm shadow-lg shadow-primary-600/30 transition flex items-center justify-center space-x-2">
-                        <i class="fa-solid fa-pen-nib"></i>
-                        <span>Log Today's Gratitude</span>
-                    </button>
-                    <button onclick="switchTab('medications')" class="px-5 py-3 rounded-xl bg-slate-900 dark:bg-slate-800 hover:bg-slate-800 dark:hover:bg-slate-700 text-white font-medium text-sm transition flex items-center justify-center space-x-2">
-                        <i class="fa-solid fa-clock"></i>
-                        <span>Check Meds</span>
-                    </button>
+                <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 p-5 rounded-2xl shadow-sm flex items-center space-x-4">
+                    <div class="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-950/50 text-emerald-500 flex items-center justify-center text-xl shadow-inner">
+                        <i class="fa-solid fa-seedling"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wider">Focus Theme</p>
+                        <h3 id="ai-stat-theme" class="text-xl font-bold mt-0.5">Growth & Mindset</h3>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 p-5 rounded-2xl shadow-sm flex items-center space-x-4">
+                    <div class="w-12 h-12 rounded-2xl bg-purple-50 dark:bg-purple-950/50 text-purple-500 flex items-center justify-center text-xl shadow-inner">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wider">AI Insight</p>
+                        <h3 id="ai-stat-insight" class="text-sm font-semibold mt-1">Reflecting fresh perspectives daily</h3>
+                    </div>
                 </div>
             </div>
 
@@ -163,20 +167,6 @@
                 </div>
             </div>
 
-            <!-- Due Medications Alert Widget -->
-            <div id="due-meds-widget" class="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/50 rounded-2xl p-5 hidden">
-                <div class="flex items-start space-x-3">
-                    <div class="p-2 bg-amber-500 text-white rounded-xl text-lg mt-0.5">
-                        <i class="fa-solid fa-triangle-exclamation"></i>
-                    </div>
-                    <div class="flex-1">
-                        <h3 class="font-bold text-amber-900 dark:text-amber-200 text-base">Medication Due Now!</h3>
-                        <p class="text-xs text-amber-700 dark:text-amber-400 mt-0.5">You have scheduled doses that require your attention right now.</p>
-                        <div id="due-meds-list" class="mt-3 space-y-2"></div>
-                    </div>
-                </div>
-            </div>
-
             <!-- Recent Summary Grid -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6 shadow-sm flex flex-col">
@@ -209,7 +199,7 @@
                 <div class="max-w-2xl mx-auto space-y-6">
                     <div class="text-center space-y-2">
                         <h2 class="text-2xl font-bold">Daily 3 Gratitudes</h2>
-                        <p class="text-sm text-slate-500 dark:text-slate-400">List three things you are genuinely grateful for today. Our AI semantic engine ensures you explore fresh perspectives!</p>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">List three things you are genuinely grateful for today.</p>
                     </div>
 
                     <div class="flex items-center justify-between bg-slate-50 dark:bg-slate-800/50 p-4 rounded-2xl border border-slate-200 dark:border-slate-800">
@@ -222,70 +212,31 @@
                                 <input type="date" id="gratitude-date-input" onchange="loadGratitudeForDate()" class="bg-transparent font-bold text-sm block focus:outline-none cursor-pointer">
                             </div>
                         </div>
-                        <div class="text-right">
-                            <span id="rolling-status-badge" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
-                                <i class="fa-solid fa-shield-check mr-1"></i> 30-Day Check Active
-                            </span>
-                        </div>
                     </div>
 
                     <form id="gratitude-form" onsubmit="saveGratitude(event)" class="space-y-4">
                         <div class="space-y-1.5">
                             <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider flex items-center justify-between">
                                 <span>1. First Gratitude</span>
-                                <span id="tag-1" class="text-xs font-normal text-slate-400"></span>
                             </label>
-                            <div class="relative">
-                                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-rose-500 pointer-events-none">
-                                    <i class="fa-solid fa-heart"></i>
-                                </span>
-                                <input type="text" id="grat-item-0" required placeholder="e.g., The warm morning coffee and quiet sunrise..." 
-                                    oninput="debouncedSemanticCheck(0)"
-                                    class="w-full pl-10 pr-10 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 focus:outline-none transition">
-                                <div id="status-icon-0" class="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-slate-400"></div>
-                            </div>
-                            <p id="warning-0" class="text-xs text-rose-600 dark:text-rose-400 font-medium hidden mt-1"></p>
+                            <input type="text" id="grat-item-0" required placeholder="e.g., The warm morning coffee..." 
+                                class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 focus:outline-none transition">
                         </div>
-
                         <div class="space-y-1.5">
                             <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider flex items-center justify-between">
                                 <span>2. Second Gratitude</span>
-                                <span id="tag-2" class="text-xs font-normal text-slate-400"></span>
                             </label>
-                            <div class="relative">
-                                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-rose-500 pointer-events-none">
-                                    <i class="fa-solid fa-heart"></i>
-                                </span>
-                                <input type="text" id="grat-item-1" required placeholder="e.g., A supportive call from an old friend..." 
-                                    oninput="debouncedSemanticCheck(1)"
-                                    class="w-full pl-10 pr-10 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 focus:outline-none transition">
-                                <div id="status-icon-1" class="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-slate-400"></div>
-                            </div>
-                            <p id="warning-1" class="text-xs text-rose-600 dark:text-rose-400 font-medium hidden mt-1"></p>
+                            <input type="text" id="grat-item-1" required placeholder="e.g., A supportive call from a friend..." 
+                                class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 focus:outline-none transition">
                         </div>
-
                         <div class="space-y-1.5">
                             <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider flex items-center justify-between">
                                 <span>3. Third Gratitude</span>
-                                <span id="tag-3" class="text-xs font-normal text-slate-400"></span>
                             </label>
-                            <div class="relative">
-                                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-rose-500 pointer-events-none">
-                                    <i class="fa-solid fa-heart"></i>
-                                </span>
-                                <input type="text" id="grat-item-2" required placeholder="e.g., Finishing that challenging task at work..." 
-                                    oninput="debouncedSemanticCheck(2)"
-                                    class="w-full pl-10 pr-10 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 focus:outline-none transition">
-                                <div id="status-icon-2" class="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-slate-400"></div>
-                            </div>
-                            <p id="warning-2" class="text-xs text-rose-600 dark:text-rose-400 font-medium hidden mt-1"></p>
+                            <input type="text" id="grat-item-2" required placeholder="e.g., Finishing a challenging task..." 
+                                class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 focus:outline-none transition">
                         </div>
-
-                        <div class="pt-4 flex items-center justify-between">
-                            <div id="ai-insight-box" class="text-xs text-slate-500 dark:text-slate-400 flex items-center space-x-1.5">
-                                <i class="fa-solid fa-wand-magic-sparkles text-brand-500"></i>
-                                <span id="ai-insight-text">AI Categorizer ready.</span>
-                            </div>
+                        <div class="pt-4 flex items-center justify-end">
                             <button type="submit" class="px-6 py-3 rounded-xl bg-gradient-to-r from-primary-600 to-emerald-600 hover:from-primary-700 hover:to-emerald-700 text-white font-semibold text-sm shadow-lg shadow-primary-600/25 transition flex items-center space-x-2">
                                 <i class="fa-solid fa-check"></i>
                                 <span>Save Gratitude Entry</span>
@@ -304,10 +255,6 @@
                     <p class="text-sm text-slate-500 dark:text-slate-400">Add your medications, dosages, frequency, and scheduled reminder times.</p>
                 </div>
                 <div class="flex items-center space-x-3">
-                    <button onclick="requestNotificationPermission()" id="notif-perm-btn" class="px-4 py-2.5 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-medium text-xs transition flex items-center space-x-2">
-                        <i class="fa-solid fa-bell"></i>
-                        <span id="notif-btn-text">Enable Notifications</span>
-                    </button>
                     <button onclick="openMedModal()" class="px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-medium text-sm shadow-lg shadow-brand-600/30 transition flex items-center space-x-2">
                         <i class="fa-solid fa-plus"></i>
                         <span>Add Medication</span>
@@ -341,21 +288,10 @@
             <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                 <div>
                     <h2 class="text-2xl font-bold">30-Day Gratitude History</h2>
-                    <p class="text-sm text-slate-500 dark:text-slate-400">Review your past entries, AI category breakdowns, and sentiment trends over the last month.</p>
-                </div>
-                <div class="flex items-center space-x-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-4 py-2 rounded-xl text-xs font-medium">
-                    <i class="fa-solid fa-chart-line text-primary-500 mr-1"></i>
-                    <span id="history-completion-rate">0% 30-Day Completion</span>
+                    <p class="text-sm text-slate-500 dark:text-slate-400">Review your past entries and trends over the last month.</p>
                 </div>
             </div>
-
-            <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6 shadow-sm">
-                <h3 class="font-bold text-sm uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-4">AI Category Distribution (30 Days)</h3>
-                <div id="category-stats-container" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3"></div>
-            </div>
-
             <div class="space-y-4">
-                <h3 class="font-bold text-base">Journal Archive</h3>
                 <div id="history-entries-list" class="space-y-4"></div>
             </div>
         </div>
@@ -379,7 +315,7 @@
                 </div>
                 <div class="space-y-1.5">
                     <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider">Dosage</label>
-                    <input type="text" id="med-dosage" required placeholder="e.g., 1000 IU, 1 pill, 5ml..." 
+                    <input type="text" id="med-dosage" required placeholder="e.g., 1000 IU, 1 pill..." 
                         class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none transition">
                 </div>
                 <div class="grid grid-cols-2 gap-4">
@@ -398,11 +334,6 @@
                             class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none transition">
                     </div>
                 </div>
-                <div class="space-y-1.5">
-                    <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider">Notes / Instructions</label>
-                    <input type="text" id="med-notes" placeholder="e.g., Take with food..." 
-                        class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none transition">
-                </div>
                 <div class="pt-4 flex items-center justify-end space-x-3">
                     <button type="button" onclick="closeMedModal()" class="px-5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-medium text-sm transition">Cancel</button>
                     <button type="submit" class="px-6 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-medium text-sm shadow-lg shadow-brand-600/30 transition">Save Medication</button>
@@ -411,125 +342,10 @@
         </div>
     </div>
 
-    <!-- Custom Modal for Alerts -->
-    <div id="alert-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 hidden">
-        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl max-w-sm w-full p-6 shadow-2xl animate-fade-in text-center space-y-4">
-            <div id="alert-modal-icon" class="w-14 h-14 rounded-2xl bg-primary-50 dark:bg-primary-950 text-primary-500 flex items-center justify-center text-2xl mx-auto shadow-inner">
-                <i class="fa-solid fa-check"></i>
-            </div>
-            <h3 id="alert-modal-title" class="font-bold text-lg">Notification</h3>
-            <p id="alert-modal-msg" class="text-sm text-slate-600 dark:text-slate-400">Message content here.</p>
-            <button onclick="closeAlertModal()" class="w-full py-2.5 rounded-xl bg-slate-900 dark:bg-slate-800 hover:bg-slate-800 dark:hover:bg-slate-700 text-white font-medium text-sm transition">OK</button>
-        </div>
-    </div>
-
-    <!-- Main App and Notifications Script -->
+    <!-- App Script -->
     <script>
-        // --- MOBILE NOTIFICATIONS & SERVICE WORKER LOGIC ---
-        let swRegistration = null;
-
-        async function initNotifications() {
-            // Check iOS Standalone mode status to show/hide guidance banner
-            const isIos = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
-            const isInStandaloneMode = ('standalone' in window.navigator) && (window.navigator.standalone);
-            if (isIos && !isInStandaloneMode) {
-                document.getElementById('ios-install-banner').style.display = 'flex';
-            }
-
-            // Register Service Worker for Android & iOS 16.4+ Web Push support
-            if ('serviceWorker' in navigator) {
-                try {
-                    // Creating an inline blob service worker code dynamically to keep file self-contained
-                    const swCode = `
-                        self.addEventListener('install', (e) => { self.skipWaiting(); });
-                        self.addEventListener('activate', (e) => { e.waitUntil(clients.claim()); });
-                        self.addEventListener('push', (e) => {
-                            const data = e.data ? e.data.json() : { title: 'MindfulCare Reminder', body: 'Time to take your medication.' };
-                            e.waitUntil(self.registration.showNotification(data.title, {
-                                body: data.body,
-                                icon: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/svgs/solid/seedling.svg'
-                            }));
-                        });
-                    `;
-                    const blob = new Blob([swCode], { type: 'text/javascript' });
-                    const swUrl = URL.createObjectURL(blob);
-                    swRegistration = await navigator.serviceWorker.register(swUrl);
-                    console.log('Service Worker registered successfully.');
-                } catch (err) {
-                    console.error('Service Worker registration failed:', err);
-                }
-            }
-
-            updatePermissionButtonState();
-            // Start interval loop to check medication schedules against current time
-            setInterval(checkScheduledMedications, 30000);
-        }
-
-        async function requestNotificationPermission() {
-            if (!('Notification' in window)) {
-                showAlert('Not Supported', 'This browser does not support desktop/mobile notifications.', 'warning');
-                return;
-            }
-
-            const isIos = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
-            const isInStandaloneMode = ('standalone' in window.navigator) && (window.navigator.standalone);
-            if (isIos && !isInStandaloneMode) {
-                showAlert('iPhone Setup Required', 'To enable notifications on iOS, please tap the Share button in Safari and select "Add to Home Screen", then open the app from your home screen.', 'warning');
-                return;
-            }
-
-            try {
-                const permission = await Notification.requestPermission();
-                updatePermissionButtonState();
-                if (permission === 'granted') {
-                    showAlert('Success', 'Notifications successfully enabled! You will receive reminders for your doses.', 'success');
-                    if (swRegistration) {
-                        swRegistration.showNotification('MindfulCare Connected', {
-                            body: 'You are all set to receive medication reminders.',
-                            icon: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/svgs/solid/seedling.svg'
-                        });
-                    }
-                } else {
-                    showAlert('Permission Denied', 'Notification permissions were blocked. Please update your browser or device settings.', 'warning');
-                }
-            } catch (err) {
-                console.error(err);
-                showAlert('Error', 'Could not request notification permissions.', 'warning');
-            }
-        }
-
-        function updatePermissionButtonState() {
-            const btnText = document.getElementById('notif-btn-text');
-            if (!('Notification' in window)) {
-                btnText.innerText = 'Not Supported';
-                return;
-            }
-            if (Notification.permission === 'granted') {
-                btnText.innerText = 'Notifications Active';
-            } else if (Notification.permission === 'denied') {
-                btnText.innerText = 'Notifications Blocked';
-            } else {
-                btnText.innerText = 'Enable Notifications';
-            }
-        }
-
-        function triggerSystemNotification(title, body) {
-            if ('Notification' in window && Notification.permission === 'granted') {
-                if (swRegistration && swRegistration.showNotification) {
-                    swRegistration.showNotification(title, {
-                        body: body,
-                        icon: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/svgs/solid/seedling.svg',
-                        badge: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/svgs/solid/seedling.svg',
-                        vibrate: [200, 100, 200]
-                    });
-                } else {
-                    new Notification(title, { body: body });
-                }
-            }
-        }
-
-        // --- MOCK APP STORAGE & UI CONTROLLERS (Base functionality stub) ---
-        let appData = { medications: [], gratitude: {} };
+        let medications = JSON.parse(localStorage.getItem('mindfulcare_meds')) || [];
+        let gratitudeEntries = JSON.parse(localStorage.getItem('mindfulcare_gratitude')) || {};
 
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
@@ -537,65 +353,119 @@
                 btn.classList.remove('bg-white', 'dark:bg-slate-800', 'text-slate-900', 'dark:text-white', 'shadow-sm');
                 btn.classList.add('text-slate-600', 'dark:text-slate-400');
             });
-            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
-            const activeBtn = document.getElementById(`tab-btn-${tabId}`);
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+            const activeBtn = document.getElementById('tab-btn-' + tabId);
             activeBtn.classList.add('bg-white', 'dark:bg-slate-800', 'text-slate-900', 'dark:text-white', 'shadow-sm');
             activeBtn.classList.remove('text-slate-600', 'dark:text-slate-400');
         }
 
-        function openMedModal() {
-            document.getElementById('med-modal').classList.remove('hidden');
-        }
-        function closeMedModal() {
-            document.getElementById('med-modal').classList.add('hidden');
-        }
-        function showAlert(title, msg, type = 'success') {
-            document.getElementById('alert-modal-title').innerText = title;
-            document.getElementById('alert-modal-msg').innerText = msg;
-            document.getElementById('alert-modal').classList.remove('hidden');
-        }
-        function closeAlertModal() {
-            document.getElementById('alert-modal').classList.add('hidden');
-        }
         function toggleDarkMode() {
             document.documentElement.classList.toggle('dark');
             const isDark = document.documentElement.classList.contains('dark');
+            localStorage.setItem('mindfulcare_theme', isDark ? 'dark' : 'light');
             document.getElementById('theme-icon').className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
         }
 
-        function saveMedication(e) {
-            e.preventDefault();
+        function openMedModal() {
+            document.getElementById('med-id').value = '';
+            document.getElementById('med-form').reset();
+            document.getElementById('med-modal-title').innerText = 'Add Medication';
+            document.getElementById('med-modal').classList.remove('hidden');
+        }
+
+        function closeMedModal() {
+            document.getElementById('med-modal').classList.add('hidden');
+        }
+
+        function saveMedication(event) {
+            event.preventDefault();
+            const id = document.getElementById('med-id').value || Date.now().toString();
             const name = document.getElementById('med-name').value;
             const dosage = document.getElementById('med-dosage').value;
+            const frequency = document.getElementById('med-frequency').value;
             const time = document.getElementById('med-time').value;
-            
-            appData.medications.push({ id: Date.now(), name, dosage, time });
+
+            const index = medications.findIndex(m => m.id === id);
+            if (index >= 0) {
+                medications[index] = { id, name, dosage, frequency, time };
+            } else {
+                medications.push({ id, name, dosage, frequency, time });
+            }
+
+            localStorage.setItem('mindfulcare_meds', JSON.stringify(medications));
             closeMedModal();
-            showAlert('Medication Saved', `${name} scheduled successfully for ${time}.`);
-            document.getElementById('med-form').reset();
+            renderMedications();
         }
 
-        function checkScheduledMedications() {
-            const now = new Date();
-            const currentTimeStr = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
-            
-            appData.medications.forEach(med => {
-                if (med.time === currentTimeStr && !med.notifiedToday) {
-                    med.notifiedToday = true;
-                    triggerSystemNotification("Medication Due: " + med.name, `Time to take your dose: ${med.dosage}`);
+        function renderMedications() {
+            const grid = document.getElementById('medication-inventory-grid');
+            if (!grid) return;
+            grid.innerHTML = medications.map(m => `
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 rounded-2xl shadow-sm flex items-center justify-between">
+                    <div>
+                        <h4 class="font-bold text-sm">${m.name}</h4>
+                        <p class="text-xs text-slate-500">${m.dosage} • ${m.frequency} at ${m.time}</p>
+                    </div>
+                    <button onclick="deleteMed('${m.id}')" class="text-rose-500 hover:text-rose-700 p-2"><i class="fa-solid fa-trash"></i></button>
+                </div>
+            `).join('') || '<p class="text-xs text-slate-400">No active medications logged.</p>';
+        }
+
+        function deleteMed(id) {
+            medications = medications.filter(m => m.id !== id);
+            localStorage.setItem('mindfulcare_meds', JSON.stringify(medications));
+            renderMedications();
+        }
+
+        function saveGratitude(event) {
+            event.preventDefault();
+            const dateInput = document.getElementById('gratitude-date-input').value || new Date().toISOString().split('T')[0];
+            const items = [
+                document.getElementById('grat-item-0').value,
+                document.getElementById('grat-item-1').value,
+                document.getElementById('grat-item-2').value
+            ];
+            gratitudeEntries[dateInput] = items;
+            localStorage.setItem('mindfulcare_gratitude', JSON.stringify(gratitudeEntries));
+            alert('Gratitude entry saved successfully!');
+        }
+
+        function exportData() {
+            const data = { medications, gratitudeEntries };
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'mindfulcare-backup.json';
+            a.click();
+        }
+
+        function importData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const parsed = JSON.parse(e.target.result);
+                    if (parsed.medications) medications = parsed.medications;
+                    if (parsed.gratitudeEntries) gratitudeEntries = parsed.gratitudeEntries;
+                    localStorage.setItem('mindfulcare_meds', JSON.stringify(medications));
+                    localStorage.setItem('mindfulcare_gratitude', JSON.stringify(gratitudeEntries));
+                    renderMedications();
+                    alert('Data imported successfully!');
+                } catch (err) {
+                    alert('Invalid JSON file.');
                 }
-            });
+            };
+            reader.readAsText(file);
         }
 
-        // Initialize on load
-        window.addEventListener('DOMContentLoaded', () => {
-            initNotifications();
-            document.getElementById('ai-status-indicator').className = 'w-2.5 h-2.5 rounded-full bg-emerald-500';
-            document.getElementById('ai-status-text').innerText = 'AI Engine Active';
-            const todayStr = new Date().toISOString().split('T')[0];
+        window.onload = function() {
+            const today = new Date().toISOString().split('T')[0];
             const dateInput = document.getElementById('gratitude-date-input');
-            if(dateInput) dateInput.value = todayStr;
-        });
+            if (dateInput) dateInput.value = today;
+            renderMedications();
+        };
     </script>
 </body>
 </html>
