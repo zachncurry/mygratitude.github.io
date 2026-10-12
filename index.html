@@ -45,12 +45,14 @@
             </div>
         </div>
 
+        <!-- AI Model Status Pill -->
         <div class="hidden md:flex items-center space-x-2 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-3 py-1.5 rounded-full text-xs">
-            <span id="ai-status-indicator" class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-            <span id="ai-status-text" class="font-medium text-slate-600 dark:text-slate-300">AI Engine Active</span>
+            <span id="ai-status-indicator" class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse"></span>
+            <span id="ai-status-text" class="font-medium text-slate-600 dark:text-slate-300">Loading AI Engine...</span>
         </div>
 
         <div class="flex items-center space-x-2">
+            <!-- Data Backup / Export / Import -->
             <button onclick="exportData()" title="Export Data" class="p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
                 <i class="fa-solid fa-download"></i>
             </button>
@@ -58,6 +60,7 @@
                 <i class="fa-solid fa-upload"></i>
                 <input type="file" id="import-file" class="hidden" onchange="importData(event)">
             </label>
+            <!-- Theme Toggle -->
             <button onclick="toggleDarkMode()" class="p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
                 <i id="theme-icon" class="fa-solid fa-moon"></i>
             </button>
@@ -67,7 +70,7 @@
     <!-- Main Container with Tabs -->
     <main class="flex-1 max-w-7xl w-full mx-auto p-4 lg:p-6 flex flex-col overflow-hidden">
         
-        <!-- Tab Navigation -->
+        <!-- Tab navigation -->
         <div class="flex space-x-1 bg-slate-200/60 dark:bg-slate-900/60 p-1.5 rounded-2xl mb-6 self-start shadow-inner overflow-x-auto max-w-full">
             <button onclick="switchTab('dashboard')" id="tab-btn-dashboard" class="tab-btn px-4 py-2 rounded-xl font-medium text-sm transition flex items-center space-x-2 bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-sm">
                 <i class="fa-solid fa-chart-pie text-primary-500"></i>
@@ -89,34 +92,22 @@
 
         <!-- TAB 1: DASHBOARD -->
         <div id="tab-dashboard" class="tab-content flex-1 overflow-y-auto space-y-6 pb-12">
-            <!-- AI Emotion Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 p-5 rounded-2xl shadow-sm flex items-center space-x-4">
-                    <div class="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-950/50 text-indigo-500 flex items-center justify-center text-xl shadow-inner">
-                        <i class="fa-solid fa-face-smile"></i>
-                    </div>
-                    <div>
-                        <p class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wider">AI Sentiment</p>
-                        <h3 id="ai-stat-sentiment" class="text-xl font-bold mt-0.5">Calm & Grateful</h3>
-                    </div>
+            <!-- Welcome Banner -->
+            <div class="bg-gradient-to-r from-primary-600/10 via-brand-600/10 to-primary-500/10 dark:from-primary-900/30 dark:to-brand-900/30 border border-primary-500/20 rounded-3xl p-6 lg:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm">
+                <div class="space-y-2 text-center md:text-left">
+                    <span id="current-date-badge" class="px-3 py-1 bg-primary-500/20 text-primary-700 dark:text-primary-300 rounded-full text-xs font-semibold uppercase tracking-wider">Today</span>
+                    <h2 class="text-2xl lg:text-3xl font-bold tracking-tight">Welcome back, take a breath.</h2>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm max-w-xl">Track your daily moments of gratitude without repetition for 30 days, and stay on top of your medication schedules seamlessly.</p>
                 </div>
-                <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 p-5 rounded-2xl shadow-sm flex items-center space-x-4">
-                    <div class="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-950/50 text-emerald-500 flex items-center justify-center text-xl shadow-inner">
-                        <i class="fa-solid fa-seedling"></i>
-                    </div>
-                    <div>
-                        <p class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wider">Top Theme</p>
-                        <h3 id="ai-stat-theme" class="text-xl font-bold mt-0.5">Health & Relationships</h3>
-                    </div>
-                </div>
-                <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 p-5 rounded-2xl shadow-sm flex items-center space-x-4">
-                    <div class="w-12 h-12 rounded-2xl bg-purple-50 dark:bg-purple-950/50 text-purple-500 flex items-center justify-center text-xl shadow-inner">
-                        <i class="fa-solid fa-wand-magic-sparkles"></i>
-                    </div>
-                    <div>
-                        <p class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wider">Mindfulness Focus</p>
-                        <h3 id="ai-stat-insight" class="text-sm font-semibold mt-1">Consistent Daily Reflection</h3>
-                    </div>
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <button onclick="switchTab('gratitude')" class="px-5 py-3 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-medium text-sm shadow-lg shadow-primary-600/30 transition flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-pen-nib"></i>
+                        <span>Log Today's Gratitude</span>
+                    </button>
+                    <button onclick="switchTab('medications')" class="px-5 py-3 rounded-xl bg-slate-900 dark:bg-slate-800 hover:bg-slate-800 dark:hover:bg-slate-700 text-white font-medium text-sm transition flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-clock"></i>
+                        <span>Check Meds</span>
+                    </button>
                 </div>
             </div>
 
@@ -160,8 +151,23 @@
                 </div>
             </div>
 
-            <!-- Dashboard Summaries -->
+            <!-- Due Medications Alert Widget -->
+            <div id="due-meds-widget" class="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/50 rounded-2xl p-5 hidden">
+                <div class="flex items-start space-x-3">
+                    <div class="p-2 bg-amber-500 text-white rounded-xl text-lg mt-0.5">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-amber-900 dark:text-amber-200 text-base">Medication Due Now!</h3>
+                        <p class="text-xs text-amber-700 dark:text-amber-400 mt-0.5">You have scheduled doses that require your attention right now.</p>
+                        <div id="due-meds-list" class="mt-3 space-y-2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Summary Grid -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Today's Gratitude Snapshot -->
                 <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6 shadow-sm flex flex-col">
                     <div class="flex items-center justify-between mb-4">
                         <h3 class="font-bold text-base flex items-center space-x-2">
@@ -170,9 +176,12 @@
                         </h3>
                         <button onclick="switchTab('gratitude')" class="text-xs text-primary-600 dark:text-primary-400 font-semibold hover:underline">Edit Entry</button>
                     </div>
-                    <div id="dashboard-today-gratitude" class="flex-1 flex flex-col justify-center"></div>
+                    <div id="dashboard-today-gratitude" class="flex-1 flex flex-col justify-center">
+                        <!-- Populated dynamically -->
+                    </div>
                 </div>
 
+                <!-- Today's Medication Schedule -->
                 <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6 shadow-sm flex flex-col">
                     <div class="flex items-center justify-between mb-4">
                         <h3 class="font-bold text-base flex items-center space-x-2">
@@ -181,7 +190,9 @@
                         </h3>
                         <button onclick="switchTab('medications')" class="text-xs text-brand-600 dark:text-brand-400 font-semibold hover:underline">Manage All</button>
                     </div>
-                    <div id="dashboard-meds-list" class="space-y-3 flex-1 overflow-y-auto max-h-[250px]"></div>
+                    <div id="dashboard-meds-list" class="space-y-3 flex-1 overflow-y-auto max-h-[250px]">
+                        <!-- Populated dynamically -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -192,9 +203,10 @@
                 <div class="max-w-2xl mx-auto space-y-6">
                     <div class="text-center space-y-2">
                         <h2 class="text-2xl font-bold">Daily 3 Gratitudes</h2>
-                        <p class="text-sm text-slate-500 dark:text-slate-400">List three things you are genuinely grateful for today.</p>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">List three things you are genuinely grateful for today. Our AI semantic engine ensures you explore fresh perspectives by flagging items repeated or too similar within your past 30 days!</p>
                     </div>
 
+                    <!-- Date Picker / Header -->
                     <div class="flex items-center justify-between bg-slate-50 dark:bg-slate-800/50 p-4 rounded-2xl border border-slate-200 dark:border-slate-800">
                         <div class="flex items-center space-x-3">
                             <div class="p-2.5 bg-primary-500 text-white rounded-xl">
@@ -205,22 +217,75 @@
                                 <input type="date" id="gratitude-date-input" onchange="loadGratitudeForDate()" class="bg-transparent font-bold text-sm block focus:outline-none cursor-pointer">
                             </div>
                         </div>
+                        <div class="text-right">
+                            <span id="rolling-status-badge" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
+                                <i class="fa-solid fa-shield-check mr-1"></i> 30-Day Check Active
+                            </span>
+                        </div>
                     </div>
 
+                    <!-- 3 Gratitude Input Fields -->
                     <form id="gratitude-form" onsubmit="saveGratitude(event)" class="space-y-4">
+                        <!-- Gratitude 1 -->
                         <div class="space-y-1.5">
-                            <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider">1. First Gratitude</label>
-                            <input type="text" id="grat-item-0" required placeholder="e.g., The warm morning coffee..." class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 focus:outline-none transition">
+                            <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider flex items-center justify-between">
+                                <span>1. First Gratitude</span>
+                                <span id="tag-1" class="text-xs font-normal text-slate-400"></span>
+                            </label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-rose-500 pointer-events-none">
+                                    <i class="fa-solid fa-heart"></i>
+                                </span>
+                                <input type="text" id="grat-item-0" required placeholder="e.g., The warm morning coffee and quiet sunrise..." 
+                                    oninput="debouncedSemanticCheck(0)"
+                                    class="w-full pl-10 pr-10 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 focus:outline-none transition">
+                                <div id="status-icon-0" class="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-slate-400"></div>
+                            </div>
+                            <p id="warning-0" class="text-xs text-rose-600 dark:text-rose-400 font-medium hidden mt-1"></p>
                         </div>
+
+                        <!-- Gratitude 2 -->
                         <div class="space-y-1.5">
-                            <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider">2. Second Gratitude</label>
-                            <input type="text" id="grat-item-1" required placeholder="e.g., A supportive call from a friend..." class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 focus:outline-none transition">
+                            <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider flex items-center justify-between">
+                                <span>2. Second Gratitude</span>
+                                <span id="tag-2" class="text-xs font-normal text-slate-400"></span>
+                            </label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-rose-500 pointer-events-none">
+                                    <i class="fa-solid fa-heart"></i>
+                                </span>
+                                <input type="text" id="grat-item-1" required placeholder="e.g., A supportive call from an old friend..." 
+                                    oninput="debouncedSemanticCheck(1)"
+                                    class="w-full pl-10 pr-10 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 focus:outline-none transition">
+                                <div id="status-icon-1" class="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-slate-400"></div>
+                            </div>
+                            <p id="warning-1" class="text-xs text-rose-600 dark:text-rose-400 font-medium hidden mt-1"></p>
                         </div>
+
+                        <!-- Gratitude 3 -->
                         <div class="space-y-1.5">
-                            <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider">3. Third Gratitude</label>
-                            <input type="text" id="grat-item-2" required placeholder="e.g., Finishing a challenging task..." class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 focus:outline-none transition">
+                            <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider flex items-center justify-between">
+                                <span>3. Third Gratitude</span>
+                                <span id="tag-3" class="text-xs font-normal text-slate-400"></span>
+                            </label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-rose-500 pointer-events-none">
+                                    <i class="fa-solid fa-heart"></i>
+                                </span>
+                                <input type="text" id="grat-item-2" required placeholder="e.g., Finishing that challenging task at work..." 
+                                    oninput="debouncedSemanticCheck(2)"
+                                    class="w-full pl-10 pr-10 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 focus:outline-none transition">
+                                <div id="status-icon-2" class="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-slate-400"></div>
+                            </div>
+                            <p id="warning-2" class="text-xs text-rose-600 dark:text-rose-400 font-medium hidden mt-1"></p>
                         </div>
-                        <div class="pt-4 flex items-center justify-end">
+
+                        <!-- Submit Button -->
+                        <div class="pt-4 flex items-center justify-between">
+                            <div id="ai-insight-box" class="text-xs text-slate-500 dark:text-slate-400 flex items-center space-x-1.5">
+                                <i class="fa-solid fa-wand-magic-sparkles text-brand-500"></i>
+                                <span id="ai-insight-text">AI Categorizer ready.</span>
+                            </div>
                             <button type="submit" class="px-6 py-3 rounded-xl bg-gradient-to-r from-primary-600 to-emerald-600 hover:from-primary-700 hover:to-emerald-700 text-white font-semibold text-sm shadow-lg shadow-primary-600/25 transition flex items-center space-x-2">
                                 <i class="fa-solid fa-check"></i>
                                 <span>Save Gratitude Entry</span>
@@ -239,6 +304,10 @@
                     <p class="text-sm text-slate-500 dark:text-slate-400">Add your medications, dosages, frequency, and scheduled reminder times.</p>
                 </div>
                 <div class="flex items-center space-x-3">
+                    <button onclick="requestNotificationPermission()" id="notif-perm-btn" class="px-4 py-2.5 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-medium text-xs transition flex items-center space-x-2">
+                        <i class="fa-solid fa-bell"></i>
+                        <span>Enable Notifications</span>
+                    </button>
                     <button onclick="openMedModal()" class="px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-medium text-sm shadow-lg shadow-brand-600/30 transition flex items-center space-x-2">
                         <i class="fa-solid fa-plus"></i>
                         <span>Add Medication</span>
@@ -246,22 +315,29 @@
                 </div>
             </div>
 
+            <!-- Medication List & Schedule Grid -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Left 2 cols: Medication Inventory -->
                 <div class="lg:col-span-2 space-y-4">
                     <h3 class="font-bold text-base flex items-center space-x-2">
                         <i class="fa-solid fa-pills text-brand-500"></i>
                         <span>Active Medications</span>
                     </h3>
-                    <div id="medication-inventory-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+                    <div id="medication-inventory-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <!-- Populated dynamically -->
+                    </div>
                 </div>
 
+                <!-- Right col: Today's Intake Log -->
                 <div class="space-y-4">
                     <h3 class="font-bold text-base flex items-center space-x-2">
                         <i class="fa-solid fa-clipboard-check text-emerald-500"></i>
                         <span>Today's Doses</span>
                     </h3>
                     <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-5 shadow-sm space-y-3">
-                        <div id="today-meds-checklist" class="space-y-3"></div>
+                        <div id="today-meds-checklist" class="space-y-3">
+                            <!-- Populated dynamically -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -280,17 +356,23 @@
                 </div>
             </div>
 
-            <!-- Category Distribution Cards Restored -->
+            <!-- Category Breakdown Pills -->
             <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6 shadow-sm">
                 <h3 class="font-bold text-sm uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-4">AI Category Distribution (30 Days)</h3>
-                <div id="category-stats-container" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3"></div>
+                <div id="category-stats-container" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+                    <!-- Populated dynamically -->
+                </div>
             </div>
 
+            <!-- Past Entries List -->
             <div class="space-y-4">
                 <h3 class="font-bold text-base">Journal Archive</h3>
-                <div id="history-entries-list" class="space-y-4"></div>
+                <div id="history-entries-list" class="space-y-4">
+                    <!-- Populated dynamically -->
+                </div>
             </div>
         </div>
+
     </main>
 
     <!-- Add/Edit Medication Modal -->
@@ -298,7 +380,7 @@
         <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl max-w-md w-full p-6 lg:p-8 shadow-2xl animate-fade-in space-y-6">
             <div class="flex items-center justify-between">
                 <h3 id="med-modal-title" class="font-bold text-xl">Add Medication</h3>
-                <button type="button" onclick="closeMedModal()" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-900 dark:hover:text-white flex items-center justify-center transition">
+                <button onclick="closeMedModal()" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-900 dark:hover:text-white flex items-center justify-center transition">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
@@ -306,26 +388,34 @@
                 <input type="hidden" id="med-id">
                 <div class="space-y-1.5">
                     <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider">Medication Name</label>
-                    <input type="text" id="med-name" required placeholder="e.g., Vitamin D3, Aspirin..." class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none transition">
+                    <input type="text" id="med-name" required placeholder="e.g., Vitamin D3, Aspirin..." 
+                        class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none transition">
                 </div>
                 <div class="space-y-1.5">
                     <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider">Dosage</label>
-                    <input type="text" id="med-dosage" required placeholder="e.g., 1000 IU, 1 pill..." class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none transition">
+                    <input type="text" id="med-dosage" required placeholder="e.g., 1000 IU, 1 pill, 5ml..." 
+                        class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none transition">
                 </div>
                 <div class="grid grid-cols-2 gap-4">
                     <div class="space-y-1.5">
                         <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider">Frequency</label>
                         <select id="med-frequency" class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none transition">
-                            <option value="Daily">Daily</option>
-                            <option value="Twice Daily">Twice Daily</option>
-                            <option value="Weekly">Weekly</option>
-                            <option value="As Needed">As Needed</option>
+                            <option value="daily">Daily</option>
+                            <option value="twice_daily">Twice Daily</option>
+                            <option value="weekly">Weekly</option>
+                            <option value="as_needed">As Needed</option>
                         </select>
                     </div>
                     <div class="space-y-1.5">
                         <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider">Reminder Time</label>
-                        <input type="time" id="med-time" required value="09:00" class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none transition">
+                        <input type="time" id="med-time" required value="09:00"
+                            class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none transition">
                     </div>
+                </div>
+                <div class="space-y-1.5">
+                    <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider">Notes / Instructions</label>
+                    <input type="text" id="med-notes" placeholder="e.g., Take with food..." 
+                        class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none transition">
                 </div>
                 <div class="pt-4 flex items-center justify-end space-x-3">
                     <button type="button" onclick="closeMedModal()" class="px-5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-medium text-sm transition">Cancel</button>
@@ -335,44 +425,376 @@
         </div>
     </div>
 
-    <!-- Application Script -->
-    <script>
-        let medications = JSON.parse(localStorage.getItem('mindfulcare_meds')) || [];
-        let gratitudeEntries = JSON.parse(localStorage.getItem('mindfulcare_gratitude')) || {};
-        let loggedDoses = JSON.parse(localStorage.getItem('mindfulcare_doses')) || {};
+    <!-- Custom Modal for Alerts -->
+    <div id="alert-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl max-w-sm w-full p-6 shadow-2xl animate-fade-in text-center space-y-4">
+            <div id="alert-modal-icon" class="w-14 h-14 rounded-2xl bg-primary-50 dark:bg-primary-950 text-primary-500 flex items-center justify-center text-2xl mx-auto shadow-inner">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h3 id="alert-modal-title" class="font-bold text-lg">Notification</h3>
+            <p id="alert-modal-msg" class="text-sm text-slate-600 dark:text-slate-400">Message content here.</p>
+            <button onclick="closeAlertModal()" class="w-full py-2.5 rounded-xl bg-slate-900 dark:bg-slate-800 hover:bg-slate-800 dark:hover:bg-slate-700 text-white font-medium text-sm transition">OK</button>
+        </div>
+    </div>
 
-        function getTodayString() {
-            return new Date().toISOString().split('T')[0];
+    <!-- Transformers.js CDN & App Script -->
+    <script type="module">
+        import { pipeline, env } from 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.0.2';
+        
+        // Configure transformers.js environment
+        env.allowLocalModels = false;
+        env.useBrowserCache = true;
+
+        let featureExtractor = null;
+        let isAiReady = false;
+
+        // Categories for classification
+        const categories = [
+            { name: "Relationships", keywords: ["friend", "family", "wife", "husband", "mom", "dad", "son", "daughter", "love", "partner", "colleague", "community", "kindness", "hug", "laugh", "people"] },
+            { name: "Health & Vitality", keywords: ["health", "body", "walk", "run", "sleep", "energy", "breath", "food", "coffee", "tea", "workout", "peace", "calm", "heal", "strong", "mind"] },
+            { name: "Nature & Environment", keywords: ["sun", "sunrise", "sunset", "tree", "flower", "rain", "ocean", "sky", "bird", "park", "mountain", "wind", "garden", "nature", "weather"] },
+            { name: "Work & Growth", keywords: ["work", "project", "task", "success", "learn", "book", "read", "goal", "idea", "creativity", "focus", "progress", "career", "skill", "finish"] },
+            { name: "Joy & Simple Pleasures", keywords: ["music", "song", "movie", "taste", "delicious", "song", "art", "game", "smile", "morning", "night", "quiet", "home", "comfort", "surprise"] }
+        ];
+
+        // Initialize AI Pipeline in background
+        async function initAI() {
+            try {
+                updateAiStatus('loading', 'Loading AI Model (Xenova/all-MiniLM-L6-v2)...');
+                // Using feature extraction pipeline for semantic embeddings
+                featureExtractor = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
+                isAiReady = true;
+                updateAiStatus('ready', 'AI Engine Active (Semantic 30-Day Check)');
+                console.log("Transformers.js pipeline initialized successfully.");
+            } catch (err) {
+                console.warn("Transformers.js failed to load, falling back to local exact-match & keyword heuristics:", err);
+                isAiReady = false;
+                updateAiStatus('fallback', 'AI Engine (Fallback Heuristics Active)');
+            }
         }
 
+        function updateAiStatus(status, text) {
+            const indicator = document.getElementById('ai-status-indicator');
+            const label = document.getElementById('ai-status-text');
+            if (!indicator || !label) return;
+            
+            label.textContent = text;
+            if (status === 'loading') {
+                indicator.className = "w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse";
+            } else if (status === 'ready') {
+                indicator.className = "w-2.5 h-2.5 rounded-full bg-emerald-500";
+            } else {
+                indicator.className = "w-2.5 h-2.5 rounded-full bg-blue-500";
+            }
+        }
+
+        // Expose AI functions globally
+        window.aiService = {
+            isReady: () => isAiReady,
+            categorizeText: function(text) {
+                const lower = text.toLowerCase();
+                let bestCat = "Joy & Simple Pleasures";
+                let maxMatches = 0;
+                for (let cat of categories) {
+                    let matches = cat.keywords.filter(kw => lower.includes(kw)).length;
+                    if (matches > maxMatches) {
+                        maxMatches = matches;
+                        bestCat = cat.name;
+                    }
+                }
+                return bestCat;
+            },
+            getEmbedding: async function(text) {
+                if (!featureExtractor) return null;
+                try {
+                    const output = await featureExtractor(text, { pooling: 'mean', normalize: true });
+                    return Array.from(output.data);
+                } catch (e) {
+                    console.error("Embedding generation error:", e);
+                    return null;
+                }
+            },
+            cosineSimilarity: function(vecA, vecB) {
+                if (!vecA || !vecB || vecA.length !== vecB.length) return 0;
+                let dot = 0.0, normA = 0.0, normB = 0.0;
+                for (let i = 0; i < vecA.length; i++) {
+                    dot += vecA[i] * vecB[i];
+                    normA += vecA[i] * vecA[i];
+                    normB += vecB[i] * vecB[i];
+                }
+                if (normA === 0 || normB === 0) return 0;
+                return dot / (Math.sqrt(normA) * Math.sqrt(normB));
+            }
+        };
+
+        // Start AI load on window load
+        window.addEventListener('load', () => {
+            initAI();
+            initializeApp();
+        });
+    </script>
+
+    <script>
+        // --- LOCAL STORAGE STATE MANAGEMENT ---
+        const STORAGE_KEY_GRATITUDE = 'mindfulcare_gratitude_v1';
+        const STORAGE_KEY_MEDS = 'mindfulcare_meds_v1';
+        const STORAGE_KEY_SETTINGS = 'mindfulcare_settings_v1';
+
+        let appState = {
+            gratitudes: {}, // Format: { "YYYY-MM-DD": [ {text, category, embedding}, ... ] }
+            medications: [], // Array of { id, name, dosage, frequency, time, notes, takenLog: { "YYYY-MM-DD": true/false } }
+            settings: { darkMode: false, notifEnabled: false }
+        };
+
+        function loadState() {
+            try {
+                const savedGrat = localStorage.getItem(STORAGE_KEY_GRATITUDE);
+                if (savedGrat) appState.gratitudes = JSON.parse(savedGrat);
+
+                const savedMeds = localStorage.getItem(STORAGE_KEY_MEDS);
+                if (savedMeds) appState.medications = JSON.parse(savedMeds);
+                else {
+                    // Default starter medication
+                    appState.medications = [
+                        { id: 'med_1', name: 'Multivitamin', dosage: '1 tablet', frequency: 'daily', time: '08:00', notes: 'Take with breakfast', takenLog: {} }
+                    ];
+                }
+
+                const savedSettings = localStorage.getItem(STORAGE_KEY_SETTINGS);
+                if (savedSettings) {
+                    appState.settings = JSON.parse(savedSettings);
+                    if (appState.settings.darkMode) {
+                        document.documentElement.classList.add('dark');
+                        document.getElementById('theme-icon').className = "fa-solid fa-sun";
+                    }
+                }
+            } catch (e) {
+                console.error("Error loading state from localStorage:", e);
+            }
+        }
+
+        function saveState() {
+            try {
+                localStorage.setItem(STORAGE_KEY_GRATITUDE, JSON.stringify(appState.gratitudes));
+                localStorage.setItem(STORAGE_KEY_MEDS, JSON.stringify(appState.medications));
+                localStorage.setItem(STORAGE_KEY_SETTINGS, JSON.stringify(appState.settings));
+            } catch (e) {
+                console.error("Error saving state:", e);
+            }
+        }
+
+        // --- APP INITIALIZATION ---
+        function initializeApp() {
+            loadState();
+            setupDates();
+            renderDashboard();
+            renderGratitudeTab();
+            renderMedicationsTab();
+            renderHistoryTab();
+            checkMedicationReminders();
+            
+            // Check reminders every minute
+            setInterval(checkMedicationReminders, 60000);
+        }
+
+        function setupDates() {
+            const todayStr = getLocalDateString(new Date());
+            const dateInput = document.getElementById('gratitude-date-input');
+            if (dateInput) {
+                dateInput.value = todayStr;
+                dateInput.max = todayStr;
+            }
+            const badge = document.getElementById('current-date-badge');
+            if (badge) {
+                badge.textContent = new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric', year: 'numeric' });
+            }
+        }
+
+        function getLocalDateString(date) {
+            const offset = date.getTimezoneOffset();
+            const adjusted = new Date(date.getTime() - (offset*60*1000));
+            return adjusted.toISOString().split('T')[0];
+        }
+
+        // --- TAB NAVIGATION ---
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('bg-white', 'dark:bg-slate-800', 'text-slate-900', 'dark:text-white', 'shadow-sm');
-                btn.classList.add('text-slate-600', 'dark:text-slate-400');
+                btn.className = "tab-btn px-4 py-2 rounded-xl font-medium text-sm transition flex items-center space-x-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white";
             });
-            document.getElementById('tab-' + tabId).classList.remove('hidden');
-            const activeBtn = document.getElementById('tab-btn-' + tabId);
-            activeBtn.classList.add('bg-white', 'dark:bg-slate-800', 'text-slate-900', 'dark:text-white', 'shadow-sm');
-            activeBtn.classList.remove('text-slate-600', 'dark:text-slate-400');
 
-            if (tabId === 'history') renderHistory();
-            if (tabId === 'medications') renderMedications();
-            if (tabId === 'dashboard') updateDashboard();
+            const targetTab = document.getElementById(`tab-${tabId}`);
+            const targetBtn = document.getElementById(`tab-btn-${tabId}`);
+            if (targetTab) targetTab.classList.remove('hidden');
+            if (targetBtn) {
+                targetBtn.className = "tab-btn px-4 py-2 rounded-xl font-medium text-sm transition flex items-center space-x-2 bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-sm";
+            }
+
+            if (tabId === 'dashboard') renderDashboard();
+            if (tabId === 'gratitude') renderGratitudeTab();
+            if (tabId === 'medications') renderMedicationsTab();
+            if (tabId === 'history') renderHistoryTab();
         }
 
-        function toggleDarkMode() {
-            document.documentElement.classList.toggle('dark');
-            const isDark = document.documentElement.classList.contains('dark');
-            localStorage.setItem('mindfulcare_theme', isDark ? 'dark' : 'light');
-            document.getElementById('theme-icon').className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+        // --- 30-DAY ROLLING UNIQUENESS & SEMANTIC CHECKING ---
+        let debounceTimer = null;
+        async function debouncedSemanticCheck(index) {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => performSemanticCheck(index), 4005);
         }
 
-        function openMedModal() {
-            document.getElementById('med-id').value = '';
+        async function performSemanticCheck(index) {
+            const inputField = document.getElementById(`grat-item-${index}`);
+            const warningEl = document.getElementById(`warning-${index}`);
+            const statusIcon = document.getElementById(`status-icon-${index}`);
+            const tagEl = document.getElementById(`tag-${index}`);
+            
+            if (!inputField) return;
+            const text = inputField.value.trim();
+            if (!text) {
+                warningEl.classList.add('hidden');
+                statusIcon.innerHTML = '';
+                tagEl.textContent = '';
+                return;
+            }
+
+            // 1. Categorize using heuristics
+            const category = window.aiService ? window.aiService.categorizeText(text) : "General";
+            tagEl.textContent = category;
+
+            // 2. Collect past 30 days of entries (excluding today)
+            const todayDateStr = document.getElementById('gratitude-date-input').value || getLocalDateString(new Date());
+            const pastEntries = getPast30DaysEntries(todayDateStr);
+
+            let isDuplicate = false;
+            let similarText = "";
+
+            // Exact match / Jaccard similarity fallback & AI embedding check
+            const currentEmbedding = window.aiService ? await window.aiService.getEmbedding(text) : null;
+
+            for (let past of pastEntries) {
+                // Exact string match check
+                if (past.text.toLowerCase() === text.toLowerCase()) {
+                    isDuplicate = true;
+                    similarText = past.text;
+                    break;
+                }
+                // Semantic similarity check using transformers.js embedding if available
+                if (currentEmbedding && past.embedding) {
+                    const sim = window.aiService.cosineSimilarity(currentEmbedding, past.embedding);
+                    if (sim > 0.82) { // high semantic similarity threshold
+                        isDuplicate = true;
+                        similarText = past.text;
+                        break;
+                    }
+                } else {
+                    // Simple word overlap fallback
+                    const wordsA = new Set(text.toLowerCase().split(/\s+/));
+                    const wordsB = new Set(past.text.toLowerCase().split(/\s+/));
+                    let intersection = 0;
+                    wordsA.forEach(w => { if (wordsB.has(w) && w.length > 3) intersection++; });
+                    if (intersection >= 3) {
+                        isDuplicate = true;
+                        similarText = past.text;
+                        break;
+                    }
+                }
+            }
+
+            if (isDuplicate) {
+                warningEl.textContent = `⚠️ Too similar to an entry from the last 30 days ("${similarText.substring(0, 35)}..."). Please write something fresh!`;
+                warningEl.classList.remove('hidden');
+                statusIcon.innerHTML = '<i class="fa-solid fa-triangle-exclamation text-amber-500"></i>';
+                inputField.classList.add('border-amber-500', 'bg-amber-50/20');
+            } else {
+                warningEl.classList.add('hidden');
+                statusIcon.innerHTML = '<i class="fa-solid fa-circle-check text-emerald-500"></i>';
+                inputField.classList.remove('border-amber-500', 'bg-amber-50/20');
+            }
+        }
+
+        function getPast30DaysEntries(currentDateStr) {
+            let entries = [];
+            let curr = new Date(currentDateStr);
+            for (let i = 1; i <= 30; i++) {
+                curr.setDate(curr.getDate() - 1);
+                let dateStr = getLocalDateString(curr);
+                if (appState.gratitudes[dateStr]) {
+                    appState.gratitudes[dateStr].forEach(item => {
+                        entries.push({ date: dateStr, ...item });
+                    });
+                }
+            }
+            return entries;
+        }
+
+        // --- GRATITUDE JOURNAL LOGIC ---
+        function loadGratitudeForDate() {
+            const dateStr = document.getElementById('gratitude-date-input').value;
+            const items = appState.gratitudes[dateStr] || [];
+            
+            for (let i = 0; i < 3; i++) {
+                const inputField = document.getElementById(`grat-item-${i}`);
+                const warningEl = document.getElementById(`warning-${i}`);
+                const statusIcon = document.getElementById(`status-icon-${i}`);
+                const tagEl = document.getElementById(`tag-${i}`);
+                
+                inputField.value = items[i] ? items[i].text : '';
+                warningEl.classList.add('hidden');
+                statusIcon.innerHTML = '';
+                tagEl.textContent = items[i] ? items[i].category : '';
+            }
+        }
+
+        async function saveGratitude(event) {
+            event.preventDefault();
+            const dateStr = document.getElementById('gratitude-date-input').value;
+            
+            let newItems = [];
+            for (let i = 0; i < 3; i++) {
+                const text = document.getElementById(`grat-item-${i}`).value.trim();
+                const category = window.aiService ? window.aiService.categorizeText(text) : "General";
+                const embedding = window.aiService ? await window.aiService.getEmbedding(text) : null;
+                newItems.push({ text, category, embedding });
+            }
+
+            appState.gratitudes[dateStr] = newItems;
+            saveState();
+
+            showAlertModal("Gratitude Saved", "Your three moments of gratitude have been successfully recorded for this date.", "success");
+            renderDashboard();
+            renderHistoryTab();
+        }
+
+        function renderGratitudeTab() {
+            if (!document.getElementById('gratitude-date-input').value) {
+                setupDates();
+            }
+            loadGratitudeForDate();
+        }
+
+        // --- MEDICATION MANAGER LOGIC ---
+        function openMedModal(medId = null) {
+            const modal = document.getElementById('med-modal');
+            const title = document.getElementById('med-modal-title');
             document.getElementById('med-form').reset();
-            document.getElementById('med-modal-title').innerText = 'Add Medication';
-            document.getElementById('med-modal').classList.remove('hidden');
+            document.getElementById('med-id').value = '';
+
+            if (medId) {
+                title.textContent = "Edit Medication";
+                const med = appState.medications.find(m => m.id === medId);
+                if (med) {
+                    document.getElementById('med-id').value = med.id;
+                    document.getElementById('med-name').value = med.name;
+                    document.getElementById('med-dosage').value = med.dosage;
+                    document.getElementById('med-frequency').value = med.frequency;
+                    document.getElementById('med-time').value = med.time;
+                    document.getElementById('med-notes').value = med.notes || '';
+                }
+            } else {
+                title.textContent = "Add Medication";
+            }
+            modal.classList.remove('hidden');
         }
 
         function closeMedModal() {
@@ -381,196 +803,314 @@
 
         function saveMedication(event) {
             event.preventDefault();
-            const id = document.getElementById('med-id').value || Date.now().toString();
-            const name = document.getElementById('med-name').value;
-            const dosage = document.getElementById('med-dosage').value;
+            const id = document.getElementById('med-id').value;
+            const name = document.getElementById('med-name').value.trim();
+            const dosage = document.getElementById('med-dosage').value.trim();
             const frequency = document.getElementById('med-frequency').value;
             const time = document.getElementById('med-time').value;
+            const notes = document.getElementById('med-notes').value.trim();
 
-            const index = medications.findIndex(m => m.id === id);
-            if (index >= 0) {
-                medications[index] = { id, name, dosage, frequency, time };
+            if (id) {
+                const med = appState.medications.find(m => m.id === id);
+                if (med) {
+                    med.name = name;
+                    med.dosage = dosage;
+                    med.frequency = frequency;
+                    med.time = time;
+                    med.notes = notes;
+                }
             } else {
-                medications.push({ id, name, dosage, frequency, time });
+                const newMed = {
+                    id: 'med_' + Date.now(),
+                    name, dosage, frequency, time, notes,
+                    takenLog: {}
+                };
+                appState.medications.push(newMed);
             }
 
-            localStorage.setItem('mindfulcare_meds', JSON.stringify(medications));
+            saveState();
             closeMedModal();
-            renderMedications();
-            updateDashboard();
+            renderMedicationsTab();
+            renderDashboard();
         }
 
-        function renderMedications() {
+        function deleteMedication(id) {
+            appState.medications = appState.medications.filter(m => m.id !== id);
+            saveState();
+            renderMedicationsTab();
+            renderDashboard();
+        }
+
+        function toggleMedicationTaken(medId, dateStr) {
+            const med = appState.medications.find(m => m.id === medId);
+            if (!med) return;
+            if (!med.takenLog) med.takenLog = {};
+            med.takenLog[dateStr] = !med.takenLog[dateStr];
+            saveState();
+            renderMedicationsTab();
+            renderDashboard();
+        }
+
+        function renderMedicationsTab() {
             const grid = document.getElementById('medication-inventory-grid');
-            if (!grid) return;
-            
-            grid.innerHTML = medications.length ? medications.map(m => `
-                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 rounded-2xl shadow-sm flex items-center justify-between">
-                    <div>
-                        <h4 class="font-bold text-sm text-slate-800 dark:text-slate-100">${m.name}</h4>
-                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">${m.dosage} • ${m.frequency} at ${m.time}</p>
-                    </div>
-                    <button onclick="deleteMed('${m.id}')" class="text-rose-500 hover:text-rose-700 p-2"><i class="fa-solid fa-trash"></i></button>
-                </div>
-            `).join('') : '<p class="text-xs text-slate-400 col-span-2">No active medications configured. Click "Add Medication" to begin.</p>';
-
-            renderTodayChecklist();
-        }
-
-        function renderTodayChecklist() {
             const checklist = document.getElementById('today-meds-checklist');
-            const dashChecklist = document.getElementById('dashboard-meds-list');
-            const today = getTodayString();
-            const todayDoses = loggedDoses[today] || {};
+            const todayStr = getLocalDateString(new Date());
 
-            if (!medications.length) {
-                const emptyHtml = '<p class="text-xs text-slate-400">No scheduled medications for today.</p>';
-                if (checklist) checklist.innerHTML = emptyHtml;
-                if (dashChecklist) dashChecklist.innerHTML = emptyHtml;
+            if (appState.medications.length === 0) {
+                grid.innerHTML = `<div class="col-span-2 text-center py-8 text-slate-400 text-sm">No medications added yet. Click 'Add Medication' to start.</div>`;
+                checklist.innerHTML = `<div class="text-center py-4 text-slate-400 text-sm">No medications scheduled.</div>`;
                 return;
             }
 
-            const html = medications.map(m => {
-                const isTaken = !!todayDoses[m.id];
-                return `
-                    <div class="flex items-center justify-between p-3 rounded-xl ${isTaken ? 'bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200/50' : 'bg-slate-50 dark:bg-slate-800/50'}">
-                        <div>
-                            <p class="text-xs font-semibold ${isTaken ? 'line-through text-slate-400' : 'text-slate-800 dark:text-slate-200'}">${m.name} (${m.dosage})</p>
-                            <p class="text-[10px] text-slate-400">${m.time}</p>
+            grid.innerHTML = appState.medications.map(med => `
+                <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 p-5 rounded-2xl shadow-sm flex flex-col justify-between space-y-4">
+                    <div class="space-y-1">
+                        <div class="flex items-center justify-between">
+                            <h4 class="font-bold text-base text-slate-900 dark:text-white">${med.name}</h4>
+                            <span class="px-2.5 py-1 bg-brand-50 dark:bg-brand-950/50 text-brand-700 dark:text-brand-300 rounded-lg text-xs font-semibold">${med.dosage}</span>
                         </div>
-                        <button onclick="toggleDose('${m.id}')" class="px-3 py-1 rounded-lg text-xs font-semibold ${isTaken ? 'bg-emerald-500 text-white' : 'bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300'}">
-                            ${isTaken ? 'Taken' : 'Mark Taken'}
-                        </button>
+                        <p class="text-xs text-slate-500 dark:text-slate-400"><i class="fa-solid fa-clock mr-1"></i> ${med.time} (${med.frequency.replace('_', ' ')})</p>
+                        ${med.notes ? `<p class="text-xs text-slate-600 dark:text-slate-300 italic mt-1">${med.notes}</p>` : ''}
+                    </div>
+                    <div class="flex items-center justify-end space-x-2 pt-2 border-t border-slate-100 dark:border-slate-800">
+                        <button onclick="openMedModal('${med.id}')" class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-medium transition">Edit</button>
+                        <button onclick="deleteMedication('${med.id}')" class="px-3 py-1.5 rounded-lg bg-rose-50 dark:bg-rose-950/50 text-rose-600 hover:bg-rose-100 text-xs font-medium transition">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+
+            checklist.innerHTML = appState.medications.map(med => {
+                const isTaken = med.takenLog && med.takenLog[todayStr];
+                return `
+                    <div class="flex items-center justify-between p-3.5 rounded-xl border ${isTaken ? 'bg-emerald-50/50 dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-900/50' : 'bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700'} transition">
+                        <div class="flex items-center space-x-3">
+                            <button onclick="toggleMedicationTaken('${med.id}', '${todayStr}')" class="w-6 h-6 rounded-lg ${isTaken ? 'bg-emerald-500 text-white' : 'border-2 border-slate-300 dark:border-slate-600'} flex items-center justify-center transition">
+                                ${isTaken ? '<i class="fa-solid fa-check text-xs"></i>' : ''}
+                            </button>
+                            <div>
+                                <h5 class="font-bold text-sm ${isTaken ? 'line-through text-slate-400 dark:text-slate-500' : ''}">${med.name}</h5>
+                                <span class="text-xs text-slate-500">${med.dosage} at ${med.time}</span>
+                            </div>
+                        </div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-full ${isTaken ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200' : 'bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300'}">
+                            ${isTaken ? 'Taken' : 'Pending'}
+                        </span>
                     </div>
                 `;
             }).join('');
-
-            if (checklist) checklist.innerHTML = html;
-            if (dashChecklist) dashChecklist.innerHTML = html;
         }
 
-        function toggleDose(medId) {
-            const today = getTodayString();
-            if (!loggedDoses[today]) loggedDoses[today] = {};
-            loggedDoses[today][medId] = !loggedDoses[today][medId];
-            localStorage.setItem('mindfulcare_doses', JSON.stringify(loggedDoses));
-            renderTodayChecklist();
-            updateDashboard();
+        // --- NOTIFICATION & REMINDER LOGIC ---
+        function requestNotificationPermission() {
+            if (!("Notification" in window)) {
+                showAlertModal("Not Supported", "This browser does not support desktop notifications.", "info");
+                return;
+            }
+            Notification.requestPermission().then(permission => {
+                if (permission === "granted") {
+                    appState.settings.notifEnabled = true;
+                    saveState();
+                    showAlertModal("Enabled", "Medication desktop notifications have been enabled successfully.", "success");
+                } else {
+                    showAlertModal("Permission Denied", "Notifications were blocked by browser settings.", "warning");
+                }
+            });
         }
 
-        function deleteMed(id) {
-            medications = medications.filter(m => m.id !== id);
-            localStorage.setItem('mindfulcare_meds', JSON.stringify(medications));
-            renderMedications();
-            updateDashboard();
-        }
+        function checkMedicationReminders() {
+            const now = new Date();
+            const currentTimeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+            const todayStr = getLocalDateString(now);
 
-        function saveGratitude(event) {
-            event.preventDefault();
-            const dateInput = document.getElementById('gratitude-date-input').value || getTodayString();
-            const items = [
-                document.getElementById('grat-item-0').value,
-                document.getElementById('grat-item-1').value,
-                document.getElementById('grat-item-2').value
-            ];
-            gratitudeEntries[dateInput] = items;
-            localStorage.setItem('mindfulcare_gratitude', JSON.stringify(gratitudeEntries));
-            alert('Gratitude entry saved!');
-            updateDashboard();
-        }
+            let dueMeds = [];
+            appState.medications.forEach(med => {
+                if (med.time === currentTimeStr) {
+                    if (!med.takenLog || !med.takenLog[todayStr]) {
+                        dueMeds.push(med);
+                    }
+                }
+            });
 
-        function loadGratitudeForDate() {
-            const dateInput = document.getElementById('gratitude-date-input').value;
-            const items = gratitudeEntries[dateInput] || ['', '', ''];
-            document.getElementById('grat-item-0').value = items[0] || '';
-            document.getElementById('grat-item-1').value = items[1] || '';
-            document.getElementById('grat-item-2').value = items[2] || '';
-        }
-
-        function renderHistory() {
-            const categories = [
-                { name: 'Relationships', count: 12, icon: 'fa-heart', color: 'text-rose-500' },
-                { name: 'Health & Wellness', count: 8, icon: 'fa-notes-medical', color: 'text-emerald-500' },
-                { name: 'Career & Growth', count: 6, icon: 'fa-briefcase', color: 'text-blue-500' },
-                { name: 'Personal Joy', count: 5, icon: 'fa-smile', color: 'text-amber-500' },
-                { name: 'Nature & Env', count: 4, icon: 'fa-leaf', color: 'text-teal-500' },
-                { name: 'Mindfulness', count: 3, icon: 'fa-sun', color: 'text-purple-500' }
-            ];
-
-            const catContainer = document.getElementById('category-stats-container');
-            if (catContainer) {
-                catContainer.innerHTML = categories.map(c => `
-                    <div class="bg-slate-50 dark:bg-slate-800/50 p-3 rounded-xl border border-slate-200/60 dark:border-slate-800 text-center">
-                        <i class="fa-solid ${c.icon} ${c.color} text-lg mb-1"></i>
-                        <p class="text-xs font-semibold text-slate-700 dark:text-slate-300">${c.name}</p>
-                        <p class="text-sm font-bold text-slate-900 dark:text-white mt-0.5">${c.count} entries</p>
+            const widget = document.getElementById('due-meds-widget');
+            const list = document.getElementById('due-meds-list');
+            if (dueMeds.length > 0) {
+                widget.classList.remove('hidden');
+                list.innerHTML = dueMeds.map(med => `
+                    <div class="flex items-center justify-between bg-white dark:bg-slate-900 p-3 rounded-xl border border-amber-200 dark:border-amber-900">
+                        <div>
+                            <h4 class="font-bold text-sm">${med.name} (${med.dosage})</h4>
+                            <p class="text-xs text-slate-500">Scheduled for ${med.time}</p>
+                        </div>
+                        <button onclick="toggleMedicationTaken('${med.id}', '${todayStr}'); checkMedicationReminders();" class="px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-white rounded-lg text-xs font-semibold shadow transition">
+                            Mark as Taken
+                        </button>
                     </div>
                 `).join('');
-            }
 
-            const historyList = document.getElementById('history-entries-list');
-            const dates = Object.keys(gratitudeEntries).sort().reverse();
+                if (appState.settings.notifEnabled && Notification.permission === "granted") {
+                    new Notification("Medication Reminder", {
+                        body: `Time to take ${dueMeds.map(m => m.name).join(', ')}!`,
+                        icon: "https://placehold.co/128x128/22c55e/ffffff?text=Rx"
+                    });
+                }
+            } else {
+                widget.classList.add('hidden');
+            }
+        }
+
+        // --- DASHBOARD & HISTORY RENDERERS ---
+        function renderDashboard() {
+            const todayStr = getLocalDateString(new Date());
             
-            if (historyList) {
-                if (!dates.length) {
-                    historyList.innerHTML = '<p class="text-xs text-slate-400">No journal entries found for the last 30 days.</p>';
+            // Calculate streak
+            let streak = 0;
+            let curr = new Date();
+            while (true) {
+                let dStr = getLocalDateString(curr);
+                if (appState.gratitudes[dStr] && appState.gratitudes[dStr].length > 0) {
+                    streak++;
+                    curr.setDate(curr.getDate() - 1);
                 } else {
-                    historyList.innerHTML = dates.map(date => `
-                        <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 p-4 rounded-2xl shadow-sm space-y-2">
-                            <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-2">
-                                <span class="text-xs font-bold text-primary-600 dark:text-primary-400"><i class="fa-solid fa-calendar mr-1"></i> ${date}</span>
-                                <span class="text-[10px] bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-full font-medium text-slate-500">3 Gratitudes Logged</span>
+                    if (streak === 0 && dStr === todayStr) {
+                        // Allow today to be unlogged without breaking streak if yesterday was logged
+                        curr.setDate(curr.getDate() - 1);
+                        let yStr = getLocalDateString(curr);
+                        if (appState.gratitudes[yStr] && appState.gratitudes[yStr].length > 0) {
+                            streak++;
+                            curr.setDate(curr.getDate() - 1);
+                            continue;
+                        }
+                    }
+                    break;
+                }
+            }
+            document.getElementById('stat-streak').textContent = `${streak} Days`;
+
+            // Total gratitudes
+            let totalGrat = 0;
+            Object.values(appState.gratitudes).forEach(arr => totalGrat += arr.length);
+            document.getElementById('stat-total-gratitudes').textContent = `${totalGrat} Items`;
+
+            // Active meds
+            document.getElementById('stat-active-meds').textContent = `${appState.medications.length} Medications`;
+
+            // Pending meds today
+            let pendingMeds = 0;
+            appState.medications.forEach(med => {
+                if (!med.takenLog || !med.takenLog[todayStr]) pendingMeds++;
+            });
+            document.getElementById('stat-pending-meds').textContent = `${pendingMeds} Doses`;
+
+            // Dashboard today gratitude snapshot
+            const dashGratContainer = document.getElementById('dashboard-today-gratitude');
+            const todayItems = appState.gratitudes[todayStr];
+            if (todayItems && todayItems.length > 0) {
+                dashGratContainer.innerHTML = `
+                    <div class="space-y-2">
+                        ${todayItems.map((item, idx) => `
+                            <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
+                                <span class="font-medium text-slate-800 dark:text-slate-200">${idx + 1}. ${item.text}</span>
+                                <span class="px-2 py-0.5 rounded bg-primary-50 dark:bg-primary-950/50 text-primary-700 dark:text-primary-300 font-semibold">${item.category}</span>
                             </div>
-                            <ul class="space-y-1 text-xs text-slate-600 dark:text-slate-300 pl-4 list-disc">
-                                ${gratitudeEntries[date].map(item => `<li>${item}</li>`).join('')}
-                            </ul>
+                        `).join('')}
+                    </div>
+                `;
+            } else {
+                dashGratContainer.innerHTML = `
+                    <div class="text-center py-6 text-slate-400 space-y-2">
+                        <p class="text-xs">No gratitude logged for today yet.</p>
+                        <button onclick="switchTab('gratitude')" class="px-4 py-2 rounded-xl bg-primary-600 text-white text-xs font-semibold shadow">Log Now</button>
+                    </div>
+                `;
+            }
+
+            // Dashboard meds list snapshot
+            const dashMedsContainer = document.getElementById('dashboard-meds-list');
+            if (appState.medications.length > 0) {
+                dashMedsContainer.innerHTML = appState.medications.slice(0, 3).map(med => {
+                    const isTaken = med.takenLog && med.takenLog[todayStr];
+                    return `
+                        <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 text-xs">
+                            <span class="font-bold ${isTaken ? 'line-through text-slate-400' : ''}">${med.name} (${med.dosage})</span>
+                            <span class="px-2 py-0.5 rounded font-semibold ${isTaken ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-200 text-slate-700'}">${isTaken ? 'Taken' : med.time}</span>
                         </div>
-                    `).join('');
-                }
-            }
-
-            const completionRate = Math.min(100, Math.round((dates.length / 30) * 100));
-            document.getElementById('history-completion-rate').innerText = `${completionRate}% 30-Day Completion`;
-        }
-
-        function updateDashboard() {
-            const today = getTodayString();
-            const totalGratitudes = Object.values(gratitudeEntries).reduce((acc, curr) => acc + curr.filter(Boolean).length, 0);
-            
-            document.getElementById('stat-total-gratitudes').innerText = `${totalGratitudes} Items`;
-            document.getElementById('stat-active-meds').innerText = `${medications.length} Medications`;
-
-            const todayDoses = loggedDoses[today] || {};
-            const takenCount = Object.values(todayDoses).filter(Boolean).length;
-            const pendingCount = Math.max(0, medications.length - takenCount);
-            document.getElementById('stat-pending-meds').innerText = `${pendingCount} Doses`;
-
-            // Today's Gratitude Card
-            const todayGrat = gratitudeEntries[today];
-            const dashGrat = document.getElementById('dashboard-today-gratitude');
-            if (dashGrat) {
-                if (todayGrat && todayGrat.some(Boolean)) {
-                    dashGrat.innerHTML = `
-                        <ul class="space-y-2 text-xs text-slate-600 dark:text-slate-300">
-                            ${todayGrat.map(g => `<li class="flex items-center space-x-2"><i class="fa-solid fa-heart text-rose-500 text-[10px]"></i><span>${g}</span></li>`).join('')}
-                        </ul>
                     `;
-                } else {
-                    dashGrat.innerHTML = '<p class="text-xs text-slate-400 italic">No gratitudes logged yet today. Click "Edit Entry" to complete your daily log.</p>';
-                }
+                }).join('');
+            } else {
+                dashMedsContainer.innerHTML = `<div class="text-center py-6 text-slate-400 text-xs">No medications registered.</div>`;
             }
-
-            renderTodayChecklist();
         }
 
+        function renderHistoryTab() {
+            const listEl = document.getElementById('history-entries-list');
+            const catContainer = document.getElementById('category-stats-container');
+            const completionRateEl = document.getElementById('history-completion-rate');
+
+            // Calculate past 30 days stats
+            let catCounts = { "Relationships": 0, "Health & Vitality": 0, "Nature & Environment": 0, "Work & Growth": 0, "Joy & Simple Pleasures": 0 };
+            let loggedDaysCount = 0;
+            let totalItemsCount = 0;
+
+            let curr = new Date();
+            let historyHTML = '';
+
+            for (let i = 0; i < 30; i++) {
+                let dateStr = getLocalDateString(curr);
+                let items = appState.gratitudes[dateStr];
+                
+                if (items && items.length > 0) {
+                    loggedDaysCount++;
+                    totalItemsCount += items.length;
+                    items.forEach(item => {
+                        if (catCounts[item.category] !== undefined) catCounts[item.category]++;
+                        else catCounts["Joy & Simple Pleasures"]++;
+                    });
+
+                    historyHTML += `
+                        <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-5 shadow-sm space-y-3">
+                            <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+                                <span class="font-bold text-sm text-primary-600 dark:text-primary-400"><i class="fa-solid fa-calendar-day mr-1"></i> ${dateStr}</span>
+                                <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-primary-50 dark:bg-primary-950 text-primary-700 dark:text-primary-300">${items.length} Gratitudes</span>
+                            </div>
+                            <div class="space-y-2">
+                                ${items.map((item, idx) => `
+                                    <div class="flex items-center justify-between text-xs bg-slate-50 dark:bg-slate-800/50 p-2.5 rounded-xl">
+                                        <span>${idx + 1}. ${item.text}</span>
+                                        <span class="px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-700 font-medium">${item.category}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+                curr.setDate(curr.getDate() - 1);
+            }
+
+            completionRateEl.textContent = `${Math.round((loggedDaysCount / 30) * 100)}% 30-Day Completion (${loggedDaysCount}/30 Days)`;
+
+            catContainer.innerHTML = Object.entries(catCounts).map(([cat, count]) => `
+                <div class="bg-slate-50 dark:bg-slate-800/50 p-3.5 rounded-2xl border border-slate-200 dark:border-slate-700/80 text-center">
+                    <p class="text-xs text-slate-500 dark:text-slate-400 font-medium truncate">${cat}</p>
+                    <h4 class="text-xl font-bold text-slate-900 dark:text-white mt-1">${count}</h4>
+                </div>
+            `).join('');
+
+            if (!historyHTML) {
+                listEl.innerHTML = `<div class="text-center py-12 text-slate-400 text-sm bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">No past entries recorded yet. Start logging your daily gratitude!</div>`;
+            } else {
+                listEl.innerHTML = historyHTML;
+            }
+        }
+
+        // --- EXPORT & IMPORT DATA ---
         function exportData() {
-            const data = { medications, gratitudeEntries, loggedDoses };
-            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'mindfulcare-backup.json';
-            a.click();
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appState, null, 2));
+            const dlAnchor = document.createElement('a');
+            dlAnchor.setAttribute("href", dataStr);
+            dlAnchor.setAttribute("download", `mindfulcare_backup_${getLocalDateString(new Date())}.json`);
+            document.body.appendChild(dlAnchor);
+            dlAnchor.click();
+            dlAnchor.remove();
         }
 
         function importData(event) {
@@ -579,31 +1119,77 @@
             const reader = new FileReader();
             reader.onload = function(e) {
                 try {
-                    const parsed = JSON.parse(e.target.result);
-                    if (parsed.medications) medications = parsed.medications;
-                    if (parsed.gratitudeEntries) gratitudeEntries = parsed.gratitudeEntries;
-                    if (parsed.loggedDoses) loggedDoses = parsed.loggedDoses;
-                    localStorage.setItem('mindfulcare_meds', JSON.stringify(medications));
-                    localStorage.setItem('mindfulcare_gratitude', JSON.stringify(gratitudeEntries));
-                    localStorage.setItem('mindfulcare_doses', JSON.stringify(loggedDoses));
-                    renderMedications();
-                    updateDashboard();
-                    alert('Data imported successfully!');
+                    const imported = JSON.parse(e.target.result);
+                    if (imported && imported.gratitudes && imported.medications) {
+                        appState = imported;
+                        saveState();
+                        initializeApp();
+                        showAlertModal("Import Success", "Your data was imported successfully from backup.", "success");
+                    } else {
+                        showAlertModal("Invalid Format", "The selected backup file format is invalid.", "warning");
+                    }
                 } catch (err) {
-                    alert('Invalid JSON file format.');
+                    showAlertModal("Import Error", "Failed to parse JSON backup file.", "warning");
                 }
             };
             reader.readAsText(file);
         }
 
-        window.onload = function() {
-            const today = getTodayString();
-            const dateInput = document.getElementById('gratitude-date-input');
-            if (dateInput) dateInput.value = today;
-            loadGratitudeForDate();
-            renderMedications();
-            updateDashboard();
-        };
+        // --- UI UTILS & DARK MODE ---
+        function toggleDarkMode() {
+            appState.settings.darkMode = !appState.settings.darkMode;
+            saveState();
+            if (appState.settings.darkMode) {
+                document.documentElement.classList.add('dark');
+                document.getElementById('theme-icon').className = "fa-solid fa-sun";
+            } else {
+                document.documentElement.classList.remove('dark');
+                document.getElementById('theme-icon').className = "fa-solid fa-moon";
+            }
+        }
+
+        function showAlertModal(title, msg, type = 'success') {
+            const modal = document.getElementById('alert-modal');
+            const titleEl = document.getElementById('alert-modal-title');
+            const msgEl = document.getElementById('alert-modal-msg');
+            const iconEl = document.getElementById('alert-modal-icon');
+
+            titleEl.textContent = title;
+            msgEl.textContent = msg;
+
+            if (type === 'success') {
+                iconEl.className = "w-14 h-14 rounded-2xl bg-emerald-50 dark:bg-emerald-950 text-emerald-500 flex items-center justify-center text-2xl mx-auto shadow-inner";
+                iconEl.innerHTML = '<i class="fa-solid fa-check"></i>';
+            } else if (type === 'warning') {
+                iconEl.className = "w-14 h-14 rounded-2xl bg-amber-50 dark:bg-amber-950 text-amber-500 flex items-center justify-center text-2xl mx-auto shadow-inner";
+                iconEl.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i>';
+            } else {
+                iconEl.className = "w-14 h-14 rounded-2xl bg-primary-50 dark:bg-primary-950 text-primary-500 flex items-center justify-center text-2xl mx-auto shadow-inner";
+                iconEl.innerHTML = '<i class="fa-solid fa-info"></i>';
+            }
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeAlertModal() {
+            document.getElementById('alert-modal').classList.add('hidden');
+        }
+
+        // Make functions globally accessible
+        window.switchTab = switchTab;
+        window.saveGratitude = saveGratitude;
+        window.loadGratitudeForDate = loadGratitudeForDate;
+        window.debouncedSemanticCheck = debouncedSemanticCheck;
+        window.openMedModal = openMedModal;
+        window.closeMedModal = closeMedModal;
+        window.saveMedication = saveMedication;
+        window.deleteMedication = deleteMedication;
+        window.toggleMedicationTaken = toggleMedicationTaken;
+        window.requestNotificationPermission = requestNotificationPermission;
+        window.exportData = exportData;
+        window.importData = importData;
+        window.toggleDarkMode = toggleDarkMode;
+        window.closeAlertModal = closeAlertModal;
     </script>
 </body>
 </html>
