@@ -35,24 +35,16 @@ Open the folder and double-click index.html to open it directly in your web brow
 
 Option 2: Deploy to GitHub Pages (Free Hosting)
 Upload your index.html file to your GitHub repository (e.g., in the main branch).
-
 Go to your repository on GitHub and click on Settings.
-
 In the left sidebar, click on Pages.
-
 Under Build and deployment, select Deploy from a branch.
-
 Choose your main branch (or root directory) and click Save.
-
 Within a minute, GitHub will provide a live URL where your app is hosted!
 
 🛠️ Tech Stack
 Frontend UI: HTML5, Tailwind CSS (via CDN), FontAwesome icons.
-
 AI / NLP: Transformers.js running Xenova/all-MiniLM-L6-v2 locally in WebAssembly / Web Workers.
-
 Data Persistence: HTML5 localStorage.
-
 Notifications: Browser Notification API & Web Audio API (for optional alert sounds).
 
 💡 How the AI Duplicate Check Works
