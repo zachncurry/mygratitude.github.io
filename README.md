@@ -1,1 +1,1 @@
-# mygratitude.github.io
+# Gratitude Journal
