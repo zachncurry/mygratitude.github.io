@@ -29,6 +29,13 @@
         .dark .glass-panel { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px); }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
         .animate-fade-in { animation: fadeIn 0.3s ease-out forwards; }
+        @keyframes breathe {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.35); }
+        }
+        .animate-breathe {
+            animation: breathe 12s infinite ease-in-out;
+        }
     </style>
 </head>
 <body class="h-full bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 flex flex-col transition-colors duration-200">
@@ -159,6 +166,37 @@
                 </div>
             </div>
 
+            <!-- Mindful Breathing Companion Widget -->
+            <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6 shadow-sm flex flex-col items-center text-center space-y-4">
+                <div class="w-full flex items-center justify-between">
+                    <h3 class="font-bold text-base flex items-center space-x-2">
+                        <i class="fa-solid fa-wind text-primary-500"></i>
+                        <span>Mindful Breathing</span>
+                    </h3>
+                    <span class="text-xs text-slate-400">1-Minute Reset</span>
+                </div>
+                
+                <!-- Breathing Circle Container -->
+                <div class="relative w-36 h-36 flex items-center justify-center my-2">
+                    <div id="breathing-circle" class="absolute w-24 h-24 rounded-full bg-gradient-to-tr from-primary-500/30 to-brand-500/30 border-2 border-primary-500/50 flex items-center justify-center transition-all duration-1000 transform scale-100">
+                        <div class="w-16 h-16 rounded-full bg-primary-500/20 flex items-center justify-center"></div>
+                    </div>
+                    <div class="relative z-10 flex flex-col items-center pointer-events-none">
+                        <span id="breathing-text" class="text-xs font-bold uppercase tracking-wider text-primary-700 dark:text-primary-300">Ready</span>
+                        <span id="breathing-timer" class="text-lg font-extrabold mt-0.5">4s</span>
+                    </div>
+                </div>
+            
+                <p id="breathing-instruction" class="text-xs text-slate-500 dark:text-slate-400">Take a moment to center yourself. Click start to begin.</p>
+            
+                <button id="breathing-toggle-btn" onclick="toggleBreathingSession()" class="px-5 py-2.5 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-medium text-xs shadow-md shadow-primary-600/20 transition flex items-center space-x-2">
+                    <i class="fa-solid fa-play"></i>
+                    <span>Start Breathing</span>
+                </button>
+            </div>
+
+
+            
             <!-- Due Medications Alert Widget -->
             <div id="due-meds-widget" class="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/50 rounded-2xl p-5 hidden">
                 <div class="flex items-start space-x-3">
@@ -1408,6 +1446,76 @@
                 showAlertModal("Error", "Failed to send request. Please try again.", "error");
             }
         };
+
+
+        let breathingInterval = null;
+        let isBreathingActive = false;
+        
+        window.toggleBreathingSession = function() {
+            const btn = document.getElementById('breathing-toggle-btn');
+            const circle = document.getElementById('breathing-circle');
+            const textEl = document.getElementById('breathing-text');
+            const timerEl = document.getElementById('breathing-timer');
+            const instructionEl = document.getElementById('breathing-instruction');
+        
+            if (isBreathingActive) {
+                // Stop session
+                clearInterval(breathingInterval);
+                isBreathingActive = false;
+                circle.classList.remove('animate-breathe');
+                circle.style.transform = 'scale(1)';
+                textEl.textContent = 'Ready';
+                timerEl.textContent = '4s';
+                instructionEl.textContent = 'Take a moment to center yourself. Click start to begin.';
+                btn.innerHTML = '<i class="fa-solid fa-play"></i><span>Start Breathing</span>';
+                btn.className = 'px-5 py-2.5 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-medium text-xs shadow-md shadow-primary-600/20 transition flex items-center space-x-2';
+            } else {
+                // Start session
+                isBreathingActive = true;
+                circle.classList.add('animate-breathe');
+                btn.innerHTML = '<i class="fa-solid fa-stop"></i><span>End Session</span>';
+                btn.className = 'px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-medium text-xs shadow-md shadow-rose-600/20 transition flex items-center space-x-2';
+                
+                let phase = 0; // 0: Inhale, 1: Hold, 2: Exhale
+                let timeLeft = 4;
+        
+                const updatePhase = () => {
+                    if (phase === 0) {
+                        textEl.textContent = 'Inhale';
+                        instructionEl.textContent = 'Breathe in slowly through your nose...';
+                    } else if (phase === 1) {
+                        textEl.textContent = 'Hold';
+                        instructionEl.textContent = 'Hold your breath gently...';
+                    } else if (phase === 2) {
+                        textEl.textContent = 'Exhale';
+                        instructionEl.textContent = 'Release the breath slowly through your mouth...';
+                    }
+                    timerEl.textContent = `${timeLeft}s`;
+                };
+        
+                updatePhase();
+        
+                breathingInterval = setInterval(() => {
+                    timeLeft--;
+                    if (timeLeft < 0) {
+                        timeLeft = 4;
+                        phase = (phase + 1) % 3;
+                    }
+                    updatePhase();
+                }, 1000);
+            }
+        };
+
+
+
+
+
+
+
+
+
+
+
 
         
 
