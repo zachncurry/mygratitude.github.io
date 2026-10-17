@@ -730,19 +730,21 @@
 
         // --- GRATITUDE JOURNAL LOGIC ---
         function loadGratitudeForDate() {
-            const dateStr = document.getElementById('gratitude-date-input').value;
-            const items = appState.gratitudes[dateStr] || [];
-            
-            for (let i = 0; i < 3; i++) {
-                const inputField = document.getElementById(`grat-item-${i}`);
-                const warningEl = document.getElementById(`warning-${i}`);
-                const statusIcon = document.getElementById(`status-icon-${i}`);
-                const tagEl = document.getElementById(`tag-${i}`);
-                
-                inputField.value = items[i] ? items[i].text : '';
-                warningEl.classList.add('hidden');
-                statusIcon.innerHTML = '';
-                tagEl.textContent = items[i] ? items[i].category : '';
+        // Keep the date input as-is, but clear the gratitude text inputs
+        for (let i = 0; i < 3; i++) {
+            const input = document.getElementById(`grat-item-${i}`);
+            if (input) input.value = '';
+
+            const statusIcon = document.getElementById(`status-icon-${i}`);
+            const warning = document.getElementById(`warning-${i}`);
+            const tag = document.getElementById(`tag-${i + 1}`);
+
+            if (statusIcon) statusIcon.innerHTML = '';
+            if (warning) {
+                warning.innerText = '';
+                warning.classList.add('hidden');
+            }
+            if (tag) tag.innerText = '';
             }
         }
 
