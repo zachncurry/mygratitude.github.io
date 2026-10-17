@@ -142,14 +142,14 @@
                 
                 <!-- Breathing Circle Container -->
                 <div class="relative w-36 h-36 flex items-center justify-center my-2">
-                    <div id="breathing-circle" class="absolute w-24 h-24 rounded-full bg-gradient-to-tr from-primary-500/30 to-brand-500/30 border-2 border-primary-500/50 flex items-center justify-center transition-transform duration-1000 ease-in-out transform scale-100">
+                <div id="breathing-circle" class="absolute w-24 h-24 rounded-full bg-gradient-to-tr from-primary-500/30 to-brand-500/30 border-2 border-primary-500/50 flex items-center justify-center transition-transform duration-[4000ms] ease-in-out transform scale-100">
                     <div class="w-16 h-16 rounded-full bg-primary-500/20 flex items-center justify-center"></div>
                 </div>
                 <div class="relative z-10 flex flex-col items-center pointer-events-none">
                     <span id="breathing-text" class="text-xs font-bold uppercase tracking-wider text-primary-700 dark:text-primary-300">Ready</span>
                     <span id="breathing-timer" class="text-lg font-extrabold mt-0.5">4s</span>
                 </div>
-                </div>
+            </div>
             
                 <p id="breathing-instruction" class="text-xs text-slate-500 dark:text-slate-400">Take a moment to center yourself. Click start to begin.</p>
             
@@ -1461,11 +1461,11 @@
         let breathingInterval = null;
         let isBreathingActive = false;
         
-        // Define each phase with its own duration (in seconds), label, instruction, and scale
+        // 4s Inhale, 4s Hold, 4s Exhale
         const breathingPhases = [
             { name: 'Inhale', instruction: 'Breathe in slowly through your nose...', scale: 'scale(1.35)', duration: 4 },
-            { name: 'Hold', instruction: 'Hold your breath gently...', scale: 'scale(1.35)', duration: 4 },
-            { name: 'Exhale', instruction: 'Release the breath slowly through your mouth...', scale: 'scale(1.0)', duration: 6 } // Slower exhale!
+            { name: 'Hold', instruction: 'Hold your breath gently...', scale: 'scale(1.35)', duration: 4 }, // Locked at peak size
+            { name: 'Exhale', instruction: 'Release the breath slowly through your mouth...', scale: 'scale(1.0)', duration: 4 }
         ];
         
         window.toggleBreathingSession = function() {
