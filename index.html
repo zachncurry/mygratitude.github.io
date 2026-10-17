@@ -142,13 +142,13 @@
                 
                 <!-- Breathing Circle Container -->
                 <div class="relative w-36 h-36 flex items-center justify-center my-2">
-                    <div id="breathing-circle" class="absolute w-24 h-24 rounded-full bg-gradient-to-tr from-primary-500/30 to-brand-500/30 border-2 border-primary-500/50 flex items-center justify-center transition-all duration-1000 transform scale-100">
-                        <div class="w-16 h-16 rounded-full bg-primary-500/20 flex items-center justify-center"></div>
-                    </div>
-                    <div class="relative z-10 flex flex-col items-center pointer-events-none">
-                        <span id="breathing-text" class="text-xs font-bold uppercase tracking-wider text-primary-700 dark:text-primary-300">Ready</span>
-                        <span id="breathing-timer" class="text-lg font-extrabold mt-0.5">4s</span>
-                    </div>
+                    <div id="breathing-circle" class="absolute w-24 h-24 rounded-full bg-gradient-to-tr from-primary-500/30 to-brand-500/30 border-2 border-primary-500/50 flex items-center justify-center transition-transform duration-1000 ease-in-out transform scale-100">
+                    <div class="w-16 h-16 rounded-full bg-primary-500/20 flex items-center justify-center"></div>
+                </div>
+                <div class="relative z-10 flex flex-col items-center pointer-events-none">
+                    <span id="breathing-text" class="text-xs font-bold uppercase tracking-wider text-primary-700 dark:text-primary-300">Ready</span>
+                    <span id="breathing-timer" class="text-lg font-extrabold mt-0.5">4s</span>
+                </div>
                 </div>
             
                 <p id="breathing-instruction" class="text-xs text-slate-500 dark:text-slate-400">Take a moment to center yourself. Click start to begin.</p>
@@ -1472,7 +1472,6 @@
                 // Stop session
                 clearInterval(breathingInterval);
                 isBreathingActive = false;
-                circle.classList.remove('animate-breathe');
                 circle.style.transform = 'scale(1)';
                 textEl.textContent = 'Ready';
                 timerEl.textContent = '4s';
@@ -1482,7 +1481,6 @@
             } else {
                 // Start session
                 isBreathingActive = true;
-                circle.classList.add('animate-breathe');
                 btn.innerHTML = '<i class="fa-solid fa-stop"></i><span>End Session</span>';
                 btn.className = 'px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-medium text-xs shadow-md shadow-rose-600/20 transition flex items-center space-x-2';
                 
@@ -1493,12 +1491,15 @@
                     if (phase === 0) {
                         textEl.textContent = 'Inhale';
                         instructionEl.textContent = 'Breathe in slowly through your nose...';
+                        circle.style.transform = 'scale(1.35)'; // Expand
                     } else if (phase === 1) {
                         textEl.textContent = 'Hold';
                         instructionEl.textContent = 'Hold your breath gently...';
+                        circle.style.transform = 'scale(1.35)'; // Stay locked at peak size!
                     } else if (phase === 2) {
                         textEl.textContent = 'Exhale';
                         instructionEl.textContent = 'Release the breath slowly through your mouth...';
+                        circle.style.transform = 'scale(1.0)'; // Contract back down
                     }
                     timerEl.textContent = `${timeLeft}s`;
                 };
