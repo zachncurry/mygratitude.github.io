@@ -92,6 +92,9 @@
                 <i class="fa-solid fa-lightbulb text-amber-500"></i>
                 <span>Request Features</span>
             </button>
+            <button onclick="switchTab('documentation')" id="tab-btn-documentation" class="tab-btn px-4 py-2 rounded-xl font-medium text-sm transition flex items-center space-x-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">
+                <i class="fa-solid fa-book text-green-500"></i>
+                <span>Documentation</span>
             </button>
         </div>
 
@@ -456,7 +459,93 @@
     </div>
 </div>
 
+<!-- TAB: DOCUMENTATION -->
+<div id="tab-documentation" class="tab-content flex-1 overflow-y-auto space-y-6 pb-12 hidden">
+    <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-3xl p-6 lg:p-8 shadow-sm">
+        <div class="max-w-3xl mx-auto space-y-8">
+            
+            <!-- Header Section -->
+            <div class="text-center space-y-2 border-b border-slate-100 dark:border-slate-800 pb-6">
+                <h2 class="text-2xl font-bold flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-book-open text-blue-500"></i>
+                    <span>MindfulCare Technical Documentation</span>
+                </h2>
+                <p class="text-sm text-slate-500 dark:text-slate-400">An architectural overview of the serverless technologies, frontend engines, and client-side libraries powering MindfulCare.</p>
+            </div>
 
+            <!-- Component 1: Transformers.js -->
+            <div class="space-y-3">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-brand-50 dark:bg-brand-950/50 text-brand-500 flex items-center justify-center text-lg shadow-inner">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-base">Transformers.js (Client-Side AI Engine)</h3>
+                        <span class="text-xs text-brand-600 dark:text-brand-400 font-medium">Hugging Face WebAssembly Runtime</span>
+                    </div>
+                </div>
+                <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed pl-13">
+                    MindfulCare utilizes Hugging Face's <code class="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-800 rounded text-xs">Transformers.js</code> to run state-of-the-art machine learning models directly inside your web browser via WebAssembly (WASM) and Web Workers. This enables client-side **semantic similarity checking** for the Gratitude Journal—analyzing entries locally on your device to flag repetitive or overly similar inputs over a 30-day rolling window without needing an expensive external server or exposing private thoughts to third-party APIs.
+                </p>
+            </div>
+
+            <hr class="border-slate-100 dark:border-slate-800">
+
+            <!-- Component 2: Google Apps Script Web App -->
+            <div class="space-y-3">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-950/50 text-amber-500 flex items-center justify-center text-lg shadow-inner">
+                        <i class="fa-solid fa-server"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-base">Google Apps Script Web App</h3>
+                        <span class="text-xs text-amber-600 dark:text-amber-400 font-medium">Serverless Email Delivery Backend</span>
+                    </div>
+                </div>
+                <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed pl-13">
+                    The Feature Request portal uses a custom serverless backend deployed via Google Apps Script. When a user submits feedback, a secure <code class="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-800 rounded text-xs">fetch()</code> post request communicates with the deployed Web App endpoint (`/exec`). The script processes the payload and utilizes Google's native <code class="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-800 rounded text-xs">MailApp</code> service to drop the request straight into your personal Gmail inbox seamlessly and securely.
+                </p>
+            </div>
+
+            <hr class="border-slate-100 dark:border-slate-800">
+
+            <!-- Component 3: Tailwind CSS -->
+            <div class="space-y-3">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-cyan-50 dark:bg-cyan-950/50 text-cyan-500 flex items-center justify-center text-lg shadow-inner">
+                        <i class="fa-solid fa-palette"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-base">Tailwind CSS (CDN & JIT)</h3>
+                        <span class="text-xs text-cyan-600 dark:text-cyan-400 font-medium">Utility-First Styling Framework</span>
+                    </div>
+                </div>
+                <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed pl-13">
+                    The entire user interface is styled using <code class="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-800 rounded text-xs">Tailwind CSS</code> via CDN script configuration. It provides responsive grid layouts, custom glass-morphism panels (<code class="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-800 rounded text-xs">backdrop-filter: blur</code>), smooth transition states, and full support for dynamic light and dark mode toggling using Tailwind's <code class="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-800 rounded text-xs">darkMode: 'class'</code> modifier.
+                </p>
+            </div>
+
+            <hr class="border-slate-100 dark:border-slate-800">
+
+            <!-- Component 4: FontAwesome & Inter Font -->
+            <div class="space-y-3">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-purple-50 dark:bg-purple-950/50 text-purple-500 flex items-center justify-center text-lg shadow-inner">
+                        <i class="fa-solid fa-icons"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-base">FontAwesome & Google Fonts (Inter)</h3>
+                        <span class="text-xs text-purple-600 dark:text-purple-400 font-medium">Typography & Iconography</span>
+                    </div>
+                </div>
+                <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed pl-13">
+                    Visual feedback and intuitive navigation are powered by <code class="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-800 rounded text-xs">FontAwesome 6.4</code> icons across all interactive buttons, stats widgets, and modal headers. Typography is styled using Google Fonts' <code class="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-800 rounded text-xs">Inter</code> typeface family to ensure high legibility and clean aesthetics.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 
 
