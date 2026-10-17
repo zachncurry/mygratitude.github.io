@@ -398,7 +398,7 @@
                     </div>
                     <div>
                         <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">Direct Submission</span>
-                        <span class="font-bold text-sm block">To: yourgmailaccount@gmail.com</span>
+                        <span class="font-bold text-sm block">To: MyGratitudeApp@gmail.com</span>
                     </div>
                 </div>
                 <div class="text-right">
@@ -1293,6 +1293,29 @@
             document.getElementById('alert-modal').classList.add('hidden');
         }
 
+        //Feature Request
+        window.sendFeatureRequestDirect = function(event) {
+        event.preventDefault();
+    
+        const userEmail = document.getElementById('feature-user-email').value.trim();
+        const featureText = document.getElementById('feature-description').value.trim();
+        
+        // Hardcoded destination Gmail account
+        const targetGmail = 'mygratitudeapp@gmail.com'; 
+    
+        const subject = encodeURIComponent('MindfulCare - Feature Request');
+        const body = encodeURIComponent(`From User Email: ${userEmail}\n\nRequested Features:\n${featureText}`);
+    
+        // Open user's mail client with pre-filled content
+        window.location.href = `mailto:${targetGmail}?subject=${subject}&body=${body}`;
+    
+        // Reset the form after triggering
+        document.getElementById('feature-request-form').reset();
+    };
+
+
+        
+
         // Make functions globally accessible
         window.switchTab = switchTab;
         window.saveGratitude = saveGratitude;
@@ -1308,6 +1331,7 @@
         window.importData = importData;
         window.toggleDarkMode = toggleDarkMode;
         window.closeAlertModal = closeAlertModal;
+
     </script>
 </body>
 </html>
