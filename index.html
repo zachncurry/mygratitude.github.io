@@ -1461,6 +1461,13 @@
         let breathingInterval = null;
         let isBreathingActive = false;
         
+        // Define each phase with its own duration (in seconds), label, instruction, and scale
+        const breathingPhases = [
+            { name: 'Inhale', instruction: 'Breathe in slowly through your nose...', scale: 'scale(1.35)', duration: 4 },
+            { name: 'Hold', instruction: 'Hold your breath gently...', scale: 'scale(1.35)', duration: 4 },
+            { name: 'Exhale', instruction: 'Release the breath slowly through your mouth...', scale: 'scale(1.0)', duration: 6 } // Slower exhale!
+        ];
+        
         window.toggleBreathingSession = function() {
             const btn = document.getElementById('breathing-toggle-btn');
             const circle = document.getElementById('breathing-circle');
@@ -1484,39 +1491,30 @@
                 btn.innerHTML = '<i class="fa-solid fa-stop"></i><span>End Session</span>';
                 btn.className = 'px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-medium text-xs shadow-md shadow-rose-600/20 transition flex items-center space-x-2';
                 
-                let phase = 0; // 0: Inhale, 1: Hold, 2: Exhale
-                let timeLeft = 4;
+                let currentPhaseIndex = 0;
+                let timeLeft = breathingPhases[currentPhaseIndex].duration;
         
-                const updatePhase = () => {
-                    if (phase === 0) {
-                        textEl.textContent = 'Inhale';
-                        instructionEl.textContent = 'Breathe in slowly through your nose...';
-                        circle.style.transform = 'scale(1.35)'; // Expand
-                    } else if (phase === 1) {
-                        textEl.textContent = 'Hold';
-                        instructionEl.textContent = 'Hold your breath gently...';
-                        circle.style.transform = 'scale(1.35)'; // Stay locked at peak size!
-                    } else if (phase === 2) {
-                        textEl.textContent = 'Exhale';
-                        instructionEl.textContent = 'Release the breath slowly through your mouth...';
-                        circle.style.transform = 'scale(1.0)'; // Contract back down
-                    }
+                const updateDisplay = () => {
+                    const phase = breathingPhases[currentPhaseIndex];
+                    textEl.textContent = phase.name;
+                    instructionEl.textContent = phase.instruction;
+                    circle.style.transform = phase.scale;
                     timerEl.textContent = `${timeLeft}s`;
                 };
         
-                updatePhase();
+                updateDisplay();
         
                 breathingInterval = setInterval(() => {
                     timeLeft--;
                     if (timeLeft < 0) {
-                        timeLeft = 4;
-                        phase = (phase + 1) % 3;
+                        // Move to next phase
+                        currentPhaseIndex = (currentPhaseIndex + 1) % breathingPhases.length;
+                        timeLeft = breathingPhases[currentPhaseIndex].duration;
                     }
-                    updatePhase();
+                    updateDisplay();
                 }, 1000);
             }
         };
-
 
 
 
