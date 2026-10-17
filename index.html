@@ -130,34 +130,59 @@
 
 
 
-            <!-- Mindful Breathing Companion Widget -->
-            <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6 shadow-sm flex flex-col items-center text-center space-y-4">
-                <div class="w-full flex items-center justify-between">
-                    <h3 class="font-bold text-base flex items-center space-x-2">
-                        <i class="fa-solid fa-wind text-primary-500"></i>
-                        <span>Mindful Breathing</span>
-                    </h3>
-                    <span class="text-xs text-slate-400">1-Minute Reset</span>
-                </div>
-                
-                <!-- Breathing Circle Container -->
-                <div class="relative w-36 h-36 flex items-center justify-center my-2">
-                <div id="breathing-circle" class="absolute w-24 h-24 rounded-full bg-gradient-to-tr from-primary-500/30 to-brand-500/30 border-2 border-primary-500/50 flex items-center justify-center transition-transform duration-[4000ms] ease-in-out transform scale-100">
-                    <div class="w-16 h-16 rounded-full bg-primary-500/20 flex items-center justify-center"></div>
-                </div>
-                <div class="relative z-10 flex flex-col items-center pointer-events-none">
-                    <span id="breathing-text" class="text-xs font-bold uppercase tracking-wider text-primary-700 dark:text-primary-300">Ready</span>
-                    <span id="breathing-timer" class="text-lg font-extrabold mt-0.5">4s</span>
-                </div>
+          <!-- Mindfulness & Motivation Row (Side-by-Side Half Page Widths) -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    
+    <!-- Left: Mindful Breathing Widget -->
+    <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6 shadow-sm flex flex-col items-center text-center justify-between space-y-4">
+        <div class="w-full flex items-center justify-between">
+            <h3 class="font-bold text-base flex items-center space-x-2">
+                <i class="fa-solid fa-wind text-primary-500"></i>
+                <span>Mindful Breathing</span>
+            </h3>
+            <span class="text-xs text-slate-400">4-4-4 Rhythm</span>
+        </div>
+        
+        <!-- Breathing Circle Container -->
+        <div class="relative w-36 h-36 flex items-center justify-center my-2">
+            <div id="breathing-circle" class="absolute w-24 h-24 rounded-full bg-gradient-to-tr from-primary-500/30 to-brand-500/30 border-2 border-primary-500/50 flex items-center justify-center transition-transform duration-[4000ms] ease-in-out transform scale-100">
+                <div class="w-16 h-16 rounded-full bg-primary-500/20 flex items-center justify-center"></div>
             </div>
-            
-                <p id="breathing-instruction" class="text-xs text-slate-500 dark:text-slate-400">Take a moment to center yourself. Click start to begin.</p>
-            
-                <button id="breathing-toggle-btn" onclick="toggleBreathingSession()" class="px-5 py-2.5 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-medium text-xs shadow-md shadow-primary-600/20 transition flex items-center space-x-2">
-                    <i class="fa-solid fa-play"></i>
-                    <span>Start Breathing</span>
-                </button>
+            <div class="relative z-10 flex flex-col items-center pointer-events-none">
+                <span id="breathing-text" class="text-xs font-bold uppercase tracking-wider text-primary-700 dark:text-primary-300">Ready</span>
+                <span id="breathing-timer" class="text-lg font-extrabold mt-0.5">4s</span>
             </div>
+        </div>
+
+        <p id="breathing-instruction" class="text-xs text-slate-500 dark:text-slate-400">Take a moment to center yourself. Click start to begin.</p>
+
+        <button id="breathing-toggle-btn" onclick="toggleBreathingSession()" class="px-5 py-2.5 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-medium text-xs shadow-md shadow-primary-600/20 transition flex items-center space-x-2">
+            <i class="fa-solid fa-play"></i>
+            <span>Start Breathing</span>
+        </button>
+    </div>
+
+    <!-- Right: Daily Motivational Quote Card -->
+    <div class="bg-gradient-to-br from-brand-500/10 via-primary-500/5 to-transparent border border-brand-500/20 rounded-2xl p-6 shadow-sm flex flex-col justify-between space-y-4 text-left">
+        <div class="flex items-center justify-between w-full">
+            <h3 class="font-bold text-base flex items-center space-x-2">
+                <i class="fa-solid fa-quote-left text-brand-500"></i>
+                <span>Daily Mindful Thought</span>
+            </h3>
+            <button onclick="loadNewQuote()" class="text-xs text-brand-600 dark:text-brand-400 font-semibold hover:underline flex items-center gap-1.5 transition">
+                <i class="fa-solid fa-rotate"></i> New Quote
+            </button>
+        </div>
+        
+        <div class="my-auto py-6 space-y-2">
+            <p id="daily-quote-text" class="text-base font-medium italic text-slate-700 dark:text-slate-200 leading-relaxed">"Peace comes from within. Do not seek it without."</p>
+            <p id="daily-quote-author" class="text-xs font-semibold text-brand-600 dark:text-brand-400">— Buddha</p>
+        </div>
+
+        <p class="text-xs text-slate-400">Reflect on this perspective as you center your thoughts today.</p>
+    </div>
+
+</div>
 
 
 
@@ -1518,7 +1543,42 @@
 
 
 
-
+        const mindfulnessQuotes = [
+            { text: "Peace comes from within. Do not seek it without.", author: "Buddha" },
+            { text: "The present moment is filled with joy and happiness. If you are attentive, you will see it.", author: "Thich Nhat Hanh" },
+            { text: "Breathe in deeply and let go of everything that does not serve your peace.", author: "MindfulCare" },
+            { text: "Smile, breathe, and go slowly.", author: "Thich Nhat Hanh" },
+            { text: "Quiet the mind, and the soul will speak.", author: "Ma Jaya Sati Bhagavati" },
+            { text: "You cannot control the waves, but you can learn to surf.", author: "Jon Kabat-Zinn" },
+            { text: "Feelings come and go like clouds in a windy sky. Conscious breathing is my anchor.", author: "Thich Nhat Hanh" }
+        ];
+        
+        window.loadNewQuote = function() {
+            const randomIndex = Math.floor(Math.random() * mindfulnessQuotes.length);
+            const q = mindfulnessQuotes[randomIndex];
+            const textEl = document.getElementById('daily-quote-text');
+            const authorEl = document.getElementById('daily-quote-author');
+            
+            if (textEl && authorEl) {
+                // Add a quick fade effect
+                textEl.style.opacity = '0';
+                authorEl.style.opacity = '0';
+                setTimeout(() => {
+                    textEl.textContent = `"${q.text}"`;
+                    authorEl.textContent = `— ${q.author}`;
+                    textEl.style.opacity = '1';
+                    authorEl.style.opacity = '1';
+                }, 150);
+            }
+        };
+        
+        // Optional: Give text elements a smooth transition style for the fade
+        document.addEventListener('DOMContentLoaded', () => {
+            ['daily-quote-text', 'daily-quote-author'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.style.transition = 'opacity 0.2s ease-in-out';
+            });
+        });
 
 
 
