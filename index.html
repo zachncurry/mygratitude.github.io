@@ -761,6 +761,8 @@
             appState.gratitudes[dateStr] = newItems;
             saveState();
 
+            event.target.reset();
+            
             showAlertModal("Gratitude Saved", "Your three moments of gratitude have been successfully recorded for this date.", "success");
             renderDashboard();
             renderHistoryTab();
