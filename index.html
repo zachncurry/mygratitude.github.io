@@ -747,40 +747,45 @@
         }
 
         async function saveGratitude(event) {
-            event.preventDefault();
-            const dateStr = document.getElementById('gratitude-date-input').value;
-            
-            let newItems = [];
-            for (let i = 0; i < 3; i++) {
-                const text = document.getElementById(`grat-item-${i}`).value.trim();
-                const category = window.aiService ? window.aiService.categorizeText(text) : "General";
-                const embedding = window.aiService ? await window.aiService.getEmbedding(text) : null;
-                newItems.push({ text, category, embedding });
-            }
+    event.preventDefault();
+    const dateStr = document.getElementById('gratitude-date-input').value;
+    
+    let newItems = [];
+    for (let i = 0; i < 3; i++) {
+        const text = document.getElementById(`grat-item-${i}`).value.trim();
+        const category = window.aiService ? window.aiService.categorizeText(text) : "General";
+        const embedding = window.aiService ? await window.aiService.getEmbedding(text) : null;
+        newItems.push({ text, category, embedding });
+    }
 
-            appState.gratitudes[dateStr] = newItems;
-            saveState();
+    appState.gratitudes[dateStr] = newItems;
+    saveState();
 
-            for (let i = 0; i < 3; i++) {
-            const input = document.getElementById(`grat-item-${i}`);
-            if (input) input.value = '';
+    // Clear all inputs explicitly & clear focus
+    for (let i = 0; i < 3; i++) {
+        const input = document.getElementById(`grat-item-${i}`);
+        if (input) {
+            input.value = '';
+            input.blur(); // Remove browser active focus
+            input.dispatchEvent(new Event('input', { bubbles: true })); // Trigger debounced semantic checkers to reset
+        }
 
-            const statusIcon = document.getElementById(`status-icon-${i}`);
-            const warning = document.getElementById(`warning-${i}`);
-            const tag = document.getElementById(`tag-${i + 1}`);
+        const statusIcon = document.getElementById(`status-icon-${i}`);
+        const warning = document.getElementById(`warning-${i}`);
+        const tag = document.getElementById(`tag-${i + 1}`);
         
-            if (statusIcon) statusIcon.innerHTML = '';
-            if (warning) {
-                warning.innerText = '';
-                warning.classList.add('hidden');
-            }
-            if (tag) tag.innerText = '';
+        if (statusIcon) statusIcon.innerHTML = '';
+        if (warning) {
+            warning.innerText = '';
+            warning.classList.add('hidden');
         }
-            
-            showAlertModal("Gratitude Saved", "Your three moments of gratitude have been successfully recorded for this date.", "success");
-            renderDashboard();
-            renderHistoryTab();
-        }
+        if (tag) tag.innerText = '';
+    }
+
+    showAlertModal("Gratitude Saved", "Your three moments of gratitude have been successfully recorded for this date.", "success");
+    renderDashboard();
+    renderHistoryTab();
+}
 
         function renderGratitudeTab() {
             if (!document.getElementById('gratitude-date-input').value) {
