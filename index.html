@@ -1294,25 +1294,31 @@
         }
 
         //Feature Request
-        window.sendFeatureRequestDirect = function(event) {
-        event.preventDefault();
-    
-        const userEmail = document.getElementById('feature-user-email').value.trim();
-        const featureText = document.getElementById('feature-description').value.trim();
+        window.sendFeatureRequestDirect = async function(event) {
+            event.preventDefault();
         
-        // Hardcoded destination Gmail account
-        const targetGmail = 'mygratitudeapp@gmail.com'; 
-    
-        const subject = encodeURIComponent('MindfulCare - Feature Request');
-        const body = encodeURIComponent(`From User Email: ${userEmail}\n\nRequested Features:\n${featureText}`);
-    
-        // Open user's mail client with pre-filled content
-        window.location.href = `mailto:${targetGmail}?subject=${subject}&body=${body}`;
-    
-        // Reset the form after triggering
-        document.getElementById('feature-request-form').reset();
-    };
-
+            const userEmail = document.getElementById('feature-user-email').value.trim();
+            const featureText = document.getElementById('feature-description').value.trim();
+            
+            // Paste your Google Apps Script Web App URL here
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbybLG12cEQQZX9JuCr-loSMSMuZcAKdTXndU5OkRKa_GfdFIicotiRN-3fzAbb2aRvI/exec';
+        
+            try {
+                showAlertModal("Sending...", "Submitting your feature request...", "info");
+        
+                await fetch(scriptURL, {
+                    method: 'POST',
+                    mode: 'no-cors', // Required for Google Apps Script endpoints
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: userEmail, features: featureText })
+                });
+        
+                showAlertModal("Success!", "Your feature request has been sent successfully.", "success");
+                document.getElementById('feature-request-form').reset();
+            } catch (error) {
+                showAlertModal("Error", "Failed to send request. Please try again.", "error");
+            }
+        };
 
         
 
